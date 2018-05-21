@@ -1,42 +1,44 @@
 'use strict'
-
+const _ = require('lodash')
 const Promise = require('bluebird')
-const db = require('../utils/db.js')
 
-function getEmployee (req, res) {
+const employee = require('./employee')
+
+function getEmployeeById (req, res) {
   Promise.coroutine(function * () {
     const { id } = req.params
-    const conn = db.createConnection()
 
-    conn.query('SELECT * FROM MONO.employee where id = ' + id, function (err, rows, field) {
-      conn.end()
+    return employee.getEmployeeFromDb(id, function (err, rows, field) {
       if (!err) {
+        if (_.isEmpty(rows)) {
+          return res.sendStatus(404)
+        }
         return res.json(rows)
       } else {
         res.status(500)
-        return res.send(err)
+        return res.send(err.message)
       }
     })
   })()
 }
 
-function getEmployees (req, res) {
+function getAllEmployees (req, res) {
   Promise.coroutine(function * () {
-    const conn = db.createConnection()
-
-    conn.query('SELECT * FROM MONO.employee', function (err, rows, field) {
-      conn.end()
+    return employee.getEmployeesFromDb(function (err, rows, field) {
       if (!err) {
+        if (_.isEmpty(rows)) {
+          return res.sendStatus(404)
+        }
         return res.json(rows)
       } else {
         res.status(500)
-        return res.send(err)
+        return res.send(err.message)
       }
     })
   })()
 }
 
 module.exports = {
-  getEmployees,
-  getEmployee
+  getAllEmployees,
+  getEmployeeById
 }

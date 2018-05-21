@@ -15,11 +15,17 @@ attachRouters()
 attachHttpServer()
 
 app.use(bodyParser.json())
-app.use(handleError)
 
 app.get('/', function (req, res) {
   res.send('The MONO_API lives!')
 })
+
+function attachRouters () {
+  app.use(require('./timesheet_route').getRouter())
+  app.use(require('./employee_route').getRouter())
+
+  console.log('Routers attached')
+}
 
 function enableCORS () {
   app.all('/*', (req, res, next) => {
@@ -60,15 +66,6 @@ function attachErrorHandlers () {
   console.log('Error handlers attached')
 }
 
-function attachRouters () {
-  app.use(require('./test_route').getRouter())
-  app.use(require('./db_route').getRouter())
-  app.use(require('./timesheet_route').getRouter())
-  app.use(require('./employee_route').getRouter())
-
-  console.log('Routers attached')
-}
-
 function attachHttpServer () {
   httpServer.on('connection', function (conn) {
     var key = conn.remoteAddress + ':' + (conn.remotePort || '')
@@ -91,14 +88,6 @@ function attachHttpServer () {
   }
 
   console.log('HTTP Server attached')
-}
-
-function handleError (err, req, res, next) {
-  res.status(500).send({
-    message: 'An error has occurred, please contact support if the error persists',
-    error: err
-  })
-  shutdown()
 }
 
 function shutdown () {
