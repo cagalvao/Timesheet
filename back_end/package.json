@@ -1,7 +1,7 @@
 {
   "name": "mono_api",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is the API for the Software Engineering Graduation Project. It manages the Timesheet project data",
   "main": "index.js",
   "scripts": {
     "clear_docker_volume": "find ../infra/docker_volumes/mono_api/* ! -name . -prune ! -name node_modules -prune ! -name coverage -type d -or ! -name README.md ! -name wait-for-it.sh -type f | xargs rm -rf",
@@ -17,7 +17,12 @@
     "swagger": "npm run clear_swagger && node swagger/swagger.js && npm run update_swagger"
   },
   "author": "Cássio Galvão <cassio.galvao@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cagalvao/Timesheet.git"
+  },
   "license": "UNLICENSED",
+  "homepage": "https://github.com/cagalvao/Timesheet#readme",
   "devDependencies": {
     "chai": "^1.10.0",
     "chai-sorted": "^0.1.0",
