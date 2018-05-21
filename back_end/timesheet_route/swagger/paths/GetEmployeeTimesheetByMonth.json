@@ -1,0 +1,48 @@
+{
+    "get": {
+        "description": "Retorna todos os timesheets do funcionário",
+        "parameters": [
+            {
+                "in": "path",
+                "name": "employee",
+                "description": "ID do funcionário",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeeTimesheetByMonth"
+                }
+            },
+            {
+                "in": "path",
+                "name": "year",
+                "description": "Ano",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeeTimesheetByMonth"
+                }
+            },
+            {
+                "in": "path",
+                "name": "month",
+                "description": "Mês",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeeTimesheetByMonth"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "ok",
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeeTimesheetResponse"
+                }
+            },
+            "404": {
+                "description": "Not Found"
+            },
+            "500": {
+                "description": "Server Error"
+            }
+        }
+    }
+}

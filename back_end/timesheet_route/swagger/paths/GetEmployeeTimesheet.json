@@ -1,0 +1,30 @@
+{
+    "get": {
+        "description": "Retorna todos os timesheets do funcionário",
+        "parameters": [
+            {
+                "in": "path",
+                "name": "employee",
+                "description": "ID do funcionário",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeeTimesheet"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "ok",
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeeTimesheetResponse"
+                }
+            },
+            "404": {
+                "description": "Not Found"
+            },
+            "500": {
+                "description": "Server Error"
+            }
+        }
+    }
+}

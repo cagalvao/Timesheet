@@ -1,0 +1,21 @@
+{
+  "/getEmployees": {
+    "$ref": "../employee_route/swagger/paths/GetEmployees.json"
+  },
+  "/getEmployee/{id}": {
+    "$ref": "../employee_route/swagger/paths/GetEmployee.json"
+  },
+  "/getTimesheet/{employee}": {
+    "$ref": "../timesheet_route/swagger/paths/GetEmployeeTimesheet.json"
+  },
+  "/getTimesheet/{employee}/{year}": {
+    "$ref": "../timesheet_route/swagger/paths/GetEmployeeTimesheetByYear.json"
+  },
+  "/getTimesheet/{employee}/{year}/{month}": {
+    "$ref": "../timesheet_route/swagger/paths/GetEmployeeTimesheetByMonth.json"
+  },
+  "/getTimesheet/{employee}/{year}/{month}/{day}": {
+    "$ref": "../timesheet_route/swagger/paths/GetEmployeeTimesheetByDay.json"
+  }
+}
+  

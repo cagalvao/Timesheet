@@ -1,0 +1,20 @@
+{
+    "get": {
+        "description": "Retorna a lista de funcionários",
+        "parameters": [],
+        "responses": {
+            "200": {
+                "description": "ok",
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeesResponse"
+                }
+            },
+            "404": {
+                "description": "Not Found"
+            },
+            "500": {
+                "description": "Server Error"
+            }
+        }
+    }
+}

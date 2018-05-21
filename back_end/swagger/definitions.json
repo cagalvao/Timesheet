@@ -1,0 +1,29 @@
+{
+  "GetEmployees": {
+    "$ref": "../employee_route/swagger/definitions/GetEmployees.json"
+  },
+  "GetEmployeesResponse": {
+    "$ref": "../employee_route/swagger/definitions/GetEmployeesResponse.json"
+  },  
+  "GetEmployee": {
+    "$ref": "../employee_route/swagger/definitions/GetEmployee.json"
+  },
+  "GetEmployeeResponse": {
+    "$ref": "../employee_route/swagger/definitions/GetEmployeeResponse.json"
+  },
+  "GetEmployeeTimesheet": {
+    "$ref": "../timesheet_route/swagger/definitions/GetEmployeeTimesheet.json"
+  },
+  "GetEmployeeTimesheetByYear": {
+    "$ref": "../timesheet_route/swagger/definitions/GetEmployeeTimesheetByYear.json"
+  },
+  "GetEmployeeTimesheetByMonth": {
+    "$ref": "../timesheet_route/swagger/definitions/GetEmployeeTimesheetByMonth.json"
+  },
+  "GetEmployeeTimesheetByDay": {
+    "$ref": "../timesheet_route/swagger/definitions/GetEmployeeTimesheetByDay.json"
+  },
+  "GetEmployeeTimesheetResponse": {
+    "$ref": "../timesheet_route/swagger/definitions/GetEmployeeTimesheetResponse.json"
+  }
+}

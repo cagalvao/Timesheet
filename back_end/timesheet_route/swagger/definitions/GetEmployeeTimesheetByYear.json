@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "employee": {
+            "type": "number",
+            "required": "true"
+        },
+        "year": {
+            "type": "number",
+            "required": "true"
+        }
+    }
+}

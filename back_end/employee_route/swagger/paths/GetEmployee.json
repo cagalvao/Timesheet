@@ -1,0 +1,30 @@
+{
+    "get": {
+        "description": "Retorna o funcionário com base em seu ID",
+        "parameters": [
+            {
+                "in": "path",
+                "name": "id",
+                "description": "ID do funcionário",
+                "required": true,
+                "schema": {
+                    "$ref": "#/definitions/GetEmployee"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "ok",
+                "schema": {
+                    "$ref": "#/definitions/GetEmployeeResponse"
+                }
+            },
+            "404": {
+                "description": "Not Found"
+            },
+            "500": {
+                "description": "Server Error"
+            }
+        }
+    }
+}

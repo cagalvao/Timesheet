@@ -1,0 +1,9 @@
+{
+    "type": "object",
+    "properties": {
+        "employee": {
+            "type": "number",
+            "required": "true"
+        }
+    }
+}

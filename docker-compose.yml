@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  mono_db:
+    image: mysql:latest
+    ports:
+      - '3306:3306'
+    shm_size: 1g
+    volumes:
+      - ./infra/docker_volumes/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_HOST=mono_db
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DATABASE=MONO
+  mono_api:
+    user: node
+    image: cagalvao/node_carbon_pm2    
+    command: >-
+      bash -c "./app/wait-for-it.sh mono_db:3306;\
+        cd app;\
+        npm install;\
+        npm run start"
+    volumes:
+      - ./infra/docker_volumes/mono_api:/app
+    ports:
+      - '4000:4000'
+    depends_on:
+      - mono_db
+    links:
+      - mono_db
+    environment:
+      - MYSQL_HOST=mono_db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=123456
+      - MYSQL_DATABASE=MONO
+  swagger:
+    image: ngimenez/ngimenez_swagger
+    volumes:
+      - ./infra/docker_volumes/swagger:/app/swagger/doc
+    ports:
+      - '5678:80'
+    environment:
+      - URL=doc/swagger.json
+  mono_fe:
+    image: mhart/alpine-node
+    volumes:
+      - ./infra/docker_volumes/mono_fe:/app/build  
+  
+volumes:
+  back_end:
