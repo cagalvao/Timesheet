@@ -1,20 +1,21 @@
 var express = require('express')
 var app = express()
+
+var bodyParser = require('body-parser')
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
 var httpServer = require('http').Server(app)
 
 var openHttpConnections = {}
 
-var bodyParser = require('body-parser')
-
 var port = 4000
 
-enableCORS()
-
+attatchCORSRules()
 attachErrorHandlers()
-attachRouters()
 attachHttpServer()
-
-app.use(bodyParser.json())
+attachRouters()
 
 app.get('/', function (req, res) {
   res.send('The MONO_API lives!')
@@ -27,7 +28,7 @@ function attachRouters () {
   console.log('Routers attached')
 }
 
-function enableCORS () {
+function attatchCORSRules () {
   app.all('/*', (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')

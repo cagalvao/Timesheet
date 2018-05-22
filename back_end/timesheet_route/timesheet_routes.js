@@ -6,17 +6,16 @@ const timesheet = require('./timesheet')
 
 function getTimesheet (req, res, params) {
   Promise.coroutine(function * () {
-    return timesheet.getTimesheetsFromDb(params, function (err, rows, field) {
-      if (!err) {
-        if (_.isEmpty(rows)) {
-          return res.sendStatus(404)
-        }
-        return res.json(rows)
-      } else {
-        res.status(500)
-        return res.send(err.message)
+    try {
+      const timesheets = yield timesheet.listTimesheets(params)
+
+      if (_.isEmpty(timesheets)) {
+        return res.sendStatus(404)
       }
-    })
+      return res.json(timesheets)
+    } catch (err) {
+      return res.status(500).send(err.message)
+    }
   })()
 }
 
@@ -48,9 +47,27 @@ function getEmployeeTimesheetByDay (req, res) {
   })()
 }
 
+function insertTimesheet (req, res) {
+  Promise.coroutine(function * () {
+    const params = Object.assign({}, req.body)
+
+    try {
+      const employeeTimesheet = yield timesheet.insertTimesheet(params)
+
+      if (_.isEmpty(employeeTimesheet)) {
+        return res.sendStatus(404)
+      }
+      return res.json(employeeTimesheet)
+    } catch (err) {
+      return res.status(500).send(err.message)
+    }
+  })()
+}
+
 module.exports = {
   getEmployeeTimesheet,
   getEmployeeTimesheetByYear,
   getEmployeeTimesheetByMonth,
-  getEmployeeTimesheetByDay
+  getEmployeeTimesheetByDay,
+  insertTimesheet
 }

@@ -1,20 +1,18 @@
-const db = require('../utils/db.js')
+const db = require('../utils/db')
 
-function getEmployeesFromDb (callback) {
-  const conn = db.createConnection()
+async function getEmployees () {
+  const employees = await db.query('SELECT * FROM MONO.employee')
 
-  conn.query('SELECT * FROM MONO.employee', callback)
-  conn.end()
+  return employees
 }
 
-function getEmployeeFromDb (employee, callback) {
-  const conn = db.createConnection()
+async function getEmployee (employeeId) {
+  const employee = await db.query(`SELECT * FROM MONO.employee where id = ${employeeId}`)
 
-  conn.query('SELECT * FROM MONO.employee where id = ' + employee, callback)
-  conn.end()
+  return employee
 }
 
 module.exports = {
-  getEmployeesFromDb,
-  getEmployeeFromDb
+  getEmployees,
+  getEmployee
 }

@@ -8,33 +8,31 @@ function getEmployeeById (req, res) {
   Promise.coroutine(function * () {
     const { id } = req.params
 
-    return employee.getEmployeeFromDb(id, function (err, rows, field) {
-      if (!err) {
-        if (_.isEmpty(rows)) {
-          return res.sendStatus(404)
-        }
-        return res.json(rows)
-      } else {
-        res.status(500)
-        return res.send(err.message)
+    try {
+      const employeeObj = yield employee.getEmployee(id)
+
+      if (_.isEmpty(employeeObj)) {
+        return res.sendStatus(404)
       }
-    })
+      return res.json(employeeObj)
+    } catch (err) {
+      return res.status(500).send(err.message)
+    }
   })()
 }
 
 function getAllEmployees (req, res) {
   Promise.coroutine(function * () {
-    return employee.getEmployeesFromDb(function (err, rows, field) {
-      if (!err) {
-        if (_.isEmpty(rows)) {
-          return res.sendStatus(404)
-        }
-        return res.json(rows)
-      } else {
-        res.status(500)
-        return res.send(err.message)
+    try {
+      const employees = yield employee.getEmployees()
+
+      if (_.isEmpty(employees)) {
+        return res.sendStatus(404)
       }
-    })
+      return res.json(employees)
+    } catch (err) {
+      return res.status(500).send(err.message)
+    }
   })()
 }
 
