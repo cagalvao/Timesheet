@@ -11,7 +11,7 @@ async function insertWorkday (params) {
   let existingWorkday = await getWorkdayByDate(workday)
 
   if (existingWorkday.length === 0) {
-    const result = await db.query(`INSERT INTO MONO.workday (workday) VALUES ("${workday}")`)
+    const result = await db.query(`INSERT INTO workday (workday) VALUES ("${workday}")`)
     existingWorkday = await getWorkdayById(result.insertId)
   }
 
@@ -19,7 +19,7 @@ async function insertWorkday (params) {
 }
 
 async function getWorkdayId (workday) {
-  const result = await db.query(`SELECT id FROM MONO.workday where workday = "${workday}"`)
+  const result = await db.query(`SELECT id FROM workday where workday = "${workday}"`)
 
   if (result.length > 0 && result[0].id) {
     return result[0].id
