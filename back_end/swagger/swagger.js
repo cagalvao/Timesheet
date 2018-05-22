@@ -1,3 +1,4 @@
+'use strict'
 const resolve = require('json-refs').resolveRefs
 const fs = require('fs')
 

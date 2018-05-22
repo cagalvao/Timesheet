@@ -1,4 +1,4 @@
-
+'use strict'
 function getSwaggerBase (basePath) {
   return {
     swagger: '2.0',

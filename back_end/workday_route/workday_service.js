@@ -1,3 +1,4 @@
+'use strict'
 const db = require('../utils/db')
 
 const workdayQuery = 'SELECT id, DATE_FORMAT(workday, "%d/%m/%Y") as workday FROM workday'

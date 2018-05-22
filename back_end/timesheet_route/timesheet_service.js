@@ -1,3 +1,4 @@
+'use strict'
 const db = require('../utils/db')
 const { getWorkdayId } = require('../workday_route/workday_service')
 

@@ -1,3 +1,4 @@
+'use strict'
 const express = require('express')
 const { getAllEmployees, getEmployeeById } = require('./employee_routes')
 

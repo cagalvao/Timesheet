@@ -1,3 +1,4 @@
+'use strict'
 const db = require('../utils/db')
 
 async function getEmployees () {
