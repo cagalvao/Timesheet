@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "list": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "required": true
+        },
+        "workday": {
+          "type": "string",
+          "required": true
+        }
+      }
+    }
+  }
+}

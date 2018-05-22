@@ -1,0 +1,27 @@
+{
+  "post": {
+    "description": "Insere novo dia de trabalho",
+    "parameters": [
+      {
+        "in": "body",
+        "name": "body",
+        "description": "Objeto Workday",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/NewWorkday"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "ok",
+        "schema": {
+          "$ref": "#/definitions/GetWorkdaySingleResponse"
+        }
+      },
+      "500": {
+        "description": "Server Error"
+      }
+    }
+  }
+}

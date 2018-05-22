@@ -1,4 +1,5 @@
 const db = require('../utils/db')
+const { getWorkdayId } = require('../workday_route/workday')
 
 const employeeTimesheetQuery = 'select e.name, DATE_FORMAT(w.workday, "%d/%m/%Y") as workday, t.entry_1, t.entry_2, t.entry_3, t.entry_4 from MONO.employee_timesheet et inner join MONO.employee e on e.id = et.id_employee inner join MONO.workday w on w.id = et.id_workday inner join MONO.timesheet t on t.id = et.id_timesheet'
 
@@ -21,33 +22,11 @@ async function listTimesheets ({ employee, year, month, day }) {
     }
   }
 
-  const timesheets = await db.query(query)
-
-  return timesheets
+  return await db.query(query)
 }
 
 async function getEmployeeTimesheetById (employeeTimesheetId) {
-  const query = `${employeeTimesheetQuery} where et.id = ${employeeTimesheetId}`
-  const employeeTimesheet = await db.query(query)
-
-  return employeeTimesheet
-}
-
-async function getWorkdayId (workday) {
-  const result = await db.query(`SELECT id FROM MONO.workday where workday = "${workday}"`)
-
-  if (result.length > 0 && result[0].id) {
-    return result[0].id
-  } else {
-    const id = await insertWorkday(workday)
-    return id
-  }
-}
-
-async function insertWorkday (workday) {
-  const result = await db.query(`INSERT INTO MONO.workday (workday) VALUES ("${workday}")`)
-
-  return result.insertId
+  return await db.query(`${employeeTimesheetQuery} where et.id = ${employeeTimesheetId}`)
 }
 
 async function insertTimesheetEntries (entry1, entry2, entry3, entry4) {
@@ -74,9 +53,7 @@ async function insertTimesheet (timesheet) {
   const timesheetId = await insertTimesheetEntries(entry_1, entry_2, entry_3, entry_4)
   const employeeTimesheetId = await insertEmployeeTimesheet(workdayId, employeeId, timesheetId)
 
-  const employeeTimesheet = await getEmployeeTimesheetById(employeeTimesheetId)
-
-  return employeeTimesheet
+  return await getEmployeeTimesheetById(employeeTimesheetId)
 }
 
 module.exports = {

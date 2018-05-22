@@ -19,6 +19,12 @@
   },
   "/timesheets/new": {
     "$ref": "../timesheet_route/swagger/paths/NewEmployeeTimesheet.json"
+  },
+  "/workdays": {
+    "$ref": "../workday_route/swagger/paths/GetWorkdays.json"
+  },
+  "/workdays/new": {
+    "$ref": "../workday_route/swagger/paths/NewWorkday.json"
   }
 }
   

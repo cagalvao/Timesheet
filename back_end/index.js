@@ -24,8 +24,7 @@ app.get('/', function (req, res) {
 function attachRouters () {
   app.use(require('./timesheet_route').getRouter())
   app.use(require('./employee_route').getRouter())
-
-  console.log('Routers attached')
+  app.use(require('./workday_route').getRouter())
 }
 
 function attatchCORSRules () {
@@ -41,8 +40,6 @@ function attatchCORSRules () {
 
     next()
   })
-
-  console.log('CORS enabled')
 }
 
 function attachErrorHandlers () {
@@ -63,8 +60,6 @@ function attachErrorHandlers () {
 
     shutdown()
   })
-
-  console.log('Error handlers attached')
 }
 
 function attachHttpServer () {
@@ -87,8 +82,6 @@ function attachHttpServer () {
     console.log('Exiting process')
     process.exit(1)
   }
-
-  console.log('HTTP Server attached')
 }
 
 function shutdown () {

@@ -28,5 +28,14 @@
   },
   "NewEmployeeTimesheet": {
     "$ref": "../timesheet_route/swagger/definitions/NewEmployeeTimesheet.json"
+  },
+  "GetWorkdayResponse": {
+    "$ref": "../workday_route/swagger/definitions/GetWorkdayResponse.json"
+  },
+  "GetWorkdaySingleResponse": {
+    "$ref": "../workday_route/swagger/definitions/GetWorkdaySingleResponse.json"
+  },
+  "NewWorkday": {
+    "$ref": "../workday_route/swagger/definitions/NewWorkday.json"
   }
 }

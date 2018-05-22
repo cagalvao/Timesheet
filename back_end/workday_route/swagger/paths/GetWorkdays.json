@@ -1,0 +1,20 @@
+{
+    "get": {
+        "description": "Retorna todos os dias de trabalho",
+        "parameters": [],
+        "responses": {
+            "200": {
+                "description": "ok",
+                "schema": {
+                    "$ref": "#/definitions/GetWorkdayResponse"
+                }
+            },
+            "404": {
+                "description": "Not Found"
+            },
+            "500": {
+                "description": "Server Error"
+            }
+        }
+    }
+}
