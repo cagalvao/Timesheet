@@ -14,7 +14,8 @@
     "static_test_with_docker": "npm run refresh_docker_volume && docker exec -it project_mono_api_1 /bin/bash -c \"cd app && npm run static_test\"",
     "clear_swagger": "find ../infra/docker_volumes/swagger/* ! -name README.md -type f | tac | xargs rm -rf",
     "update_swagger": "rsync swagger/doc/* ../infra/docker_volumes/swagger/",
-    "swagger": "npm run clear_swagger && node swagger/swagger.js && npm run update_swagger"
+    "swagger": "npm run clear_swagger && node swagger/swagger.js && npm run update_swagger",
+    "install_in_docker": "docker exec -it project_mono_api_1 /bin/bash -c \"cd app && npm install\""
   },
   "author": "Cássio Galvão <cassio.galvao@outlook.com>",
   "repository": {
@@ -30,8 +31,6 @@
     "istanbul": "^0.4.5",
     "json-refs": "^2.1.7",
     "mocha": "^3.2.0",
-    "mock-knex": "^0.3.8",
-    "mockdate": "^2.0.1",
     "onchange": "^3.2.1",
     "proxyquire": "^1.8.0",
     "rewire": "^2.5.2",
