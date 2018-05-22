@@ -2,7 +2,7 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
 
-const timesheet = require('./timesheet')
+const timesheet = require('./timesheet_service')
 
 function getTimesheet (req, res, params) {
   Promise.coroutine(function * () {

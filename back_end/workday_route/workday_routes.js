@@ -2,7 +2,7 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
 
-const workday = require('./workday')
+const workday = require('./workday_service')
 
 function getAllWorkdays (req, res) {
   Promise.coroutine(function * () {

@@ -2,7 +2,7 @@
 const _ = require('lodash')
 const Promise = require('bluebird')
 
-const employee = require('./employee')
+const employee = require('./employee_service')
 
 function getEmployeeById (req, res) {
   Promise.coroutine(function * () {
