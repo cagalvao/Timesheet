@@ -20,7 +20,6 @@ services:
     command: >-
       bash -c "./app/wait-for-it.sh mono_db:3306;\
         cd app;\
-        npm install;\
         npm run start"
     volumes:
       - ./infra/docker_volumes/mono_api:/app
