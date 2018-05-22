@@ -22,11 +22,13 @@ async function listTimesheets ({ employee, year, month, day }) {
     }
   }
 
-  return await db.query(query)
+  const timesheets = await db.query(query)
+  return timesheets
 }
 
 async function getEmployeeTimesheetById (employeeTimesheetId) {
-  return await db.query(`${employeeTimesheetQuery} where et.id = ${employeeTimesheetId}`)
+  const timesheet = await db.query(`${employeeTimesheetQuery} where et.id = ${employeeTimesheetId}`)
+  return timesheet
 }
 
 async function insertTimesheetEntries (entry1, entry2, entry3, entry4) {
@@ -53,7 +55,8 @@ async function insertTimesheet (timesheet) {
   const timesheetId = await insertTimesheetEntries(entry_1, entry_2, entry_3, entry_4)
   const employeeTimesheetId = await insertEmployeeTimesheet(workdayId, employeeId, timesheetId)
 
-  return await getEmployeeTimesheetById(employeeTimesheetId)
+  const employeeTimesheet = await getEmployeeTimesheetById(employeeTimesheetId)
+  return employeeTimesheet
 }
 
 module.exports = {

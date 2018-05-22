@@ -3,7 +3,8 @@ const db = require('../utils/db')
 const workdayQuery = 'SELECT id, DATE_FORMAT(workday, "%d/%m/%Y") as workday FROM workday'
 
 async function listWorkdays () {
-  return await db.query(workdayQuery)
+  const workdays = await db.query(workdayQuery)
+  return workdays
 }
 
 async function insertWorkday (params) {
@@ -24,16 +25,19 @@ async function getWorkdayId (workday) {
   if (result.length > 0 && result[0].id) {
     return result[0].id
   } else {
-    return await insertWorkday(workday)
+    const newObj = await insertWorkday(workday)
+    return newObj
   }
 }
 
 async function getWorkdayById (id) {
-  return await db.query(`${workdayQuery} where id = "${id}"`)
+  const workday = await db.query(`${workdayQuery} where id = "${id}"`)
+  return workday
 }
 
 async function getWorkdayByDate (workday) {
-  return await db.query(`${workdayQuery} where workday = "${workday}"`)
+  const newObj = await db.query(`${workdayQuery} where workday = "${workday}"`)
+  return newObj
 }
 
 module.exports = {
