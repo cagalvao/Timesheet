@@ -14,7 +14,8 @@ function getAllWorkdays (req, res) {
       }
       return res.json(workdays)
     } catch (err) {
-      return res.status(500).send(err.message)
+      res.status(500)
+      return res.send(err.message)
     }
   })()
 }
@@ -31,7 +32,8 @@ function insertWorkday (req, res) {
       }
       return res.json(workdayObj)
     } catch (err) {
-      return res.status(500).send(err.message)
+      res.status(500)
+      return res.send(err.message)
     }
   })()
 }
