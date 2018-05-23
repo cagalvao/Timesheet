@@ -4,7 +4,7 @@ const Promise = require('bluebird')
 
 const timesheet = require('./timesheet_service')
 
-function getTimesheet (req, res, params) {
+function getTimesheet (res, params) {
   Promise.coroutine(function * () {
     try {
       const timesheets = yield timesheet.listTimesheets(params)
@@ -14,7 +14,8 @@ function getTimesheet (req, res, params) {
       }
       return res.json(timesheets)
     } catch (err) {
-      return res.status(500).send(err.message)
+      res.status(500)
+      return res.send(err.message)
     }
   })()
 }
@@ -22,28 +23,28 @@ function getTimesheet (req, res, params) {
 function getEmployeeTimesheet (req, res) {
   Promise.coroutine(function * () {
     const { employee } = req.params
-    return getTimesheet(req, res, { employee })
+    return getTimesheet(res, { employee })
   })()
 }
 
 function getEmployeeTimesheetByYear (req, res) {
   Promise.coroutine(function * () {
     const { employee, year } = req.params
-    return getTimesheet(req, res, { employee, year })
+    return getTimesheet(res, { employee, year })
   })()
 }
 
 function getEmployeeTimesheetByMonth (req, res) {
   Promise.coroutine(function * () {
     const { employee, year, month } = req.params
-    return getTimesheet(req, res, { employee, year, month })
+    return getTimesheet(res, { employee, year, month })
   })()
 }
 
 function getEmployeeTimesheetByDay (req, res) {
   Promise.coroutine(function * () {
     const { employee, year, month, day } = req.params
-    return getTimesheet(req, res, { employee, year, month, day })
+    return getTimesheet(res, { employee, year, month, day })
   })()
 }
 
@@ -59,7 +60,8 @@ function insertTimesheet (req, res) {
       }
       return res.json(employeeTimesheet)
     } catch (err) {
-      return res.status(500).send(err.message)
+      res.status(500)
+      return res.send(err.message)
     }
   })()
 }
