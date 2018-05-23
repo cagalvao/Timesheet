@@ -16,7 +16,8 @@ function getEmployeeById (req, res) {
       }
       return res.json(employeeObj)
     } catch (err) {
-      return res.status(500).send(err.message)
+      res.status(500)
+      return res.send(err.message)
     }
   })()
 }
@@ -31,7 +32,8 @@ function getAllEmployees (req, res) {
       }
       return res.json(employees)
     } catch (err) {
-      return res.status(500).send(err.message)
+      res.status(500)
+      return res.send(err.message)
     }
   })()
 }

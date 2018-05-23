@@ -1,0 +1,180 @@
+'use strict'
+
+const sinon = require('sinon')
+const proxyquire = require('proxyquire')
+
+require('should-sinon')
+
+describe('/employee_routes', function () {
+  describe('getAllEmployees', function () {
+    it('getAllEmployees should return SUCCESS', function (done) {
+      const getEmployees = sinon.stub().resolves([
+        {
+          id: 1,
+          name: 'Heisenberg'
+        },
+        {
+          id: 1,
+          name: 'Gus Fring'
+        }
+      ])
+
+      const route = proxyquire('../employee_routes', {
+        './employee_service': {
+          getEmployees
+        }
+      })
+
+      const req = {}
+
+      const res = {
+        json: (list) => {
+          list.should.deepEqual([
+            {
+              id: 1,
+              name: 'Heisenberg'
+            },
+            {
+              id: 1,
+              name: 'Gus Fring'
+            }
+          ])
+          done()
+        }
+      }
+
+      route.getAllEmployees(req, res)
+    })
+
+    it('getAllEmployees should return NOT FOUND', function (done) {
+      const getEmployees = sinon.stub().resolves([])
+
+      const route = proxyquire('../employee_routes', {
+        './employee_service': {
+          getEmployees
+        }
+      })
+
+      const req = {}
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(404)
+          done()
+        }
+      }
+
+      route.getAllEmployees(req, res)
+    })
+
+    it('getAllEmployees should return ERROR', function (done) {
+      const getEmployees = sinon.stub().rejects(Error('generic error'))
+
+      const route = proxyquire('../employee_routes', {
+        './employee_service': {
+          getEmployees
+        }
+      })
+
+      const req = {}
+
+      const res = {
+        status: (code) => {
+          code.should.be.equal(500)
+        },
+        send: (error) => {
+          error.should.be.equal('generic error')
+          done()
+        }
+      }
+
+      route.getAllEmployees(req, res)
+    })
+  })
+
+  describe('getEmployeeById', function () {
+    it('getEmployeeById should return SUCCESS', function (done) {
+      const getEmployee = sinon.stub().resolves({
+        id: 1,
+        name: 'Heisenberg'
+      })
+
+      const route = proxyquire('../employee_routes', {
+        './employee_service': {
+          getEmployee
+        }
+      })
+
+      const req = {
+        params: {
+          id: 1
+        }
+      }
+
+      const res = {
+        json: (obj) => {
+          obj.should.deepEqual({
+            id: 1,
+            name: 'Heisenberg'
+          })
+          done()
+        }
+      }
+
+      route.getEmployeeById(req, res)
+    })
+
+    it('getEmployeeById should return NOT FOUND', function (done) {
+      const getEmployee = sinon.stub().resolves({})
+
+      const route = proxyquire('../employee_routes', {
+        './employee_service': {
+          getEmployee
+        }
+      })
+
+      const req = {
+        params: {
+          id: 1
+        }
+      }
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(404)
+          done()
+        }
+      }
+
+      route.getEmployeeById(req, res)
+    })
+
+    it('getEmployeeById should return ERROR', function (done) {
+      const getEmployee = sinon.stub().rejects(Error('generic error'))
+
+      const route = proxyquire('../employee_routes', {
+        './employee_service': {
+          getEmployee
+        }
+      })
+
+      const req = {
+        params: {
+          id: 1
+        }
+      }
+
+      const res = {
+        status: (code) => {
+          code.should.be.equal(500)
+        },
+        send: (error) => {
+          error.should.be.equal('generic error')
+          done()
+        }
+      }
+
+      route.getEmployeeById(req, res)
+    })
+  })
+})

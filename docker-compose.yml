@@ -16,7 +16,7 @@ services:
       - MYSQL_DATABASE=MONO
   mono_api:
     user: node
-    image: cagalvao/node_carbon_pm2    
+    image: cagalvao/node_carbon_pm2
     command: >-
       bash -c "./app/wait-for-it.sh mono_db:3306;\
         cd app;\
