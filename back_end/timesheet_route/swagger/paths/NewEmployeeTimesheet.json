@@ -16,7 +16,7 @@
       "200": {
         "description": "ok",
         "schema": {
-          "$ref": "#/definitions/GetEmployeeTimesheetSingleResponse"
+          "$ref": "#/definitions/NewEmployeeTimesheet"
         }
       },
       "500": {
