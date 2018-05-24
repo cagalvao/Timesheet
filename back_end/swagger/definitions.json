@@ -26,6 +26,9 @@
   "GetEmployeeTimesheetResponse": {
     "$ref": "../timesheet_route/swagger/definitions/GetEmployeeTimesheetResponse.json"
   },
+  "GetEmployeeTimesheetSingleResponse": {
+    "$ref": "../timesheet_route/swagger/definitions/GetEmployeeTimesheetSingleResponse.json"
+  },
   "NewEmployeeTimesheet": {
     "$ref": "../timesheet_route/swagger/definitions/NewEmployeeTimesheet.json"
   },
