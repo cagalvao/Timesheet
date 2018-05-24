@@ -10,6 +10,7 @@ const pool = mysql.createPool({
   database: process.env.MYSQL_DATABASE
 })
 
+/* istanbul ignore next */
 pool.getConnection((err, connection) => {
   if (err) {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
