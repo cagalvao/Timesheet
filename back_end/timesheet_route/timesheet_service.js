@@ -6,6 +6,10 @@ const { getWorkdayId } = require('../workday_route/workday_service')
 const employeeTimesheetQuery = 'select e.name, DATE_FORMAT(w.workday, "%d/%m/%Y") as workday, t.entry_1, t.entry_2, t.entry_3, t.entry_4 from employee_timesheet et inner join employee e on e.id = et.id_employee inner join workday w on w.id = et.id_workday inner join timesheet t on t.id = et.id_timesheet'
 
 async function listTimesheets ({ employee, year, month, day }) {
+  if (employee === undefined) {
+    await Promise.resolve(undefined)
+  }
+
   let query = employeeTimesheetQuery
 
   if (employee) {

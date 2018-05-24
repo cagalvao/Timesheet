@@ -4,8 +4,7 @@ const sinon = require('sinon')
 const proxyquire = require('proxyquire')
 const Promise = require('bluebird')
 const testingUtils = require('../../utils/testing')
-
-require('should-sinon')
+const { expect } = require('chai')
 
 describe('/timesheet_service', function () {
   beforeEach(function () {
@@ -17,6 +16,24 @@ describe('/timesheet_service', function () {
   })
 
   describe('listTimesheets', function () {
+    it('listTimesheets with no employee should return with NOT FOUND', function (done) {
+      const params = {}
+
+      const service = proxyquire('../timesheet_service', {
+        '../utils/db': {
+          query: sinon.stub().resolves(undefined)
+        }
+      })
+
+      Promise.coroutine(function * () {
+        const timesheets = yield service.listTimesheets(params)
+        /* eslint no-unused-expressions: 0 */
+        expect(timesheets).to.be.undefined
+
+        done()
+      })()
+    })
+
     it('listTimesheets with employee should return with SUCCESS', function (done) {
       const response = [
         {
