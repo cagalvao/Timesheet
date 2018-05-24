@@ -5,7 +5,7 @@ const proxyquire = require('proxyquire')
 
 require('should-sinon')
 
-describe('/workday_route', function () {
+describe('/workday_routes', function () {
   describe('getAllWorkdays', function () {
     it('getAllWorkdays should return with SUCCESS', function (done) {
       const response = [
