@@ -469,6 +469,40 @@ describe('/timesheet_routes', function () {
       route.insertTimesheet(req, res)
     })
 
+    it('insertTimesheet should return with NOT FOUND', function (done) {
+      const response = {}
+
+      const body = {
+        employeeId: 1,
+        workday: '2018-06-04',
+        entry_1: '10:16:16',
+        entry_2: '12:12:41',
+        entry_3: '13:27:33',
+        entry_4: '19:15:19'
+      }
+
+      const insertTimesheet = sinon.stub().resolves(response)
+
+      const route = proxyquire('../timesheet_routes', {
+        './timesheet_service': {
+          insertTimesheet
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(404)
+          done()
+        }
+      }
+
+      route.insertTimesheet(req, res)
+    })
+
     it('insertTimesheet should return with ERROR', function (done) {
       const body = {
         employeeId: 1,

@@ -123,6 +123,35 @@ describe('/workday_routes', function () {
       route.insertWorkday(req, res)
     })
 
+    it('insertWorkday should return with NOT FOUND', function (done) {
+      const response = {}
+
+      const body = {
+        workday: '2018-12-08'
+      }
+
+      const insertWorkday = sinon.stub().resolves(response)
+
+      const route = proxyquire('../workday_routes', {
+        './workday_service': {
+          insertWorkday
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(404)
+          done()
+        }
+      }
+
+      route.insertWorkday(req, res)
+    })
+
     it('insertWorkday should return with ERROR', function (done) {
       const body = {
         workday: '2018-12-08'
