@@ -2,10 +2,9 @@
 
 const sinon = require('sinon')
 const proxyquire = require('proxyquire')
+const testingUtils = require('../../utils/testing')
 
-require('should-sinon')
-
-describe('/employee_route', function () {
+describe('/employee_routes', function () {
   describe('getAllEmployees', function () {
     it('getAllEmployees should return with SUCCESS', function (done) {
       const getEmployees = sinon.stub().resolves([
@@ -18,6 +17,8 @@ describe('/employee_route', function () {
           name: 'Gus Fring'
         }
       ])
+
+      testingUtils.hijackMysql()
 
       const route = proxyquire('../employee_routes', {
         './employee_service': {
