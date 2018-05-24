@@ -5,7 +5,7 @@ const proxyquire = require('proxyquire')
 
 require('should-sinon')
 
-describe('/timesheet_route', function () {
+describe('/timesheet_routes', function () {
   describe('getEmployeeTimesheet', function () {
     it('getEmployeeTimesheet should return with SUCCESS', function (done) {
       const response = [
