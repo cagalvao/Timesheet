@@ -5,6 +5,14 @@ const proxyquire = require('proxyquire')
 const testingUtils = require('../../utils/testing')
 
 describe('/employee_routes', function () {
+  beforeEach(function () {
+    testingUtils.hijackMysql()
+  })
+
+  afterEach(function () {
+    testingUtils.restoreMysql()
+  })
+
   describe('getAllEmployees', function () {
     it('getAllEmployees should return with SUCCESS', function (done) {
       const getEmployees = sinon.stub().resolves([
@@ -17,8 +25,6 @@ describe('/employee_routes', function () {
           name: 'Gus Fring'
         }
       ])
-
-      testingUtils.hijackMysql()
 
       const route = proxyquire('../employee_routes', {
         './employee_service': {

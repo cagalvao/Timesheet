@@ -2,10 +2,17 @@
 
 const sinon = require('sinon')
 const proxyquire = require('proxyquire')
-
-require('should-sinon')
+const testingUtils = require('../../utils/testing')
 
 describe('/timesheet_routes', function () {
+  beforeEach(function () {
+    testingUtils.hijackMysql()
+  })
+
+  afterEach(function () {
+    testingUtils.restoreMysql()
+  })
+
   describe('getEmployeeTimesheet', function () {
     it('getEmployeeTimesheet should return with SUCCESS', function (done) {
       const response = [

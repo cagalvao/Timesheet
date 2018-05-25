@@ -2,10 +2,17 @@
 
 const sinon = require('sinon')
 const proxyquire = require('proxyquire')
-
-require('should-sinon')
+const testingUtils = require('../../utils/testing')
 
 describe('/workday_routes', function () {
+  beforeEach(function () {
+    testingUtils.hijackMysql()
+  })
+
+  afterEach(function () {
+    testingUtils.restoreMysql()
+  })
+
   describe('getAllWorkdays', function () {
     it('getAllWorkdays should return with SUCCESS', function (done) {
       const response = [
