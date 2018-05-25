@@ -1,17 +1,17 @@
 'use strict'
-var express = require('express')
-var app = express()
+const express = require('express')
+const app = express()
 
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-var httpServer = require('http').Server(app)
+const httpServer = require('http').Server(app)
 
-var openHttpConnections = {}
+const openHttpConnections = {}
 
-var port = 4000
+const port = 4000
 
 attatchCORSRules()
 attachErrorHandlers()
@@ -65,7 +65,7 @@ function attachErrorHandlers () {
 
 function attachHttpServer () {
   httpServer.on('connection', function (conn) {
-    var key = conn.remoteAddress + ':' + (conn.remotePort || '')
+    const key = conn.remoteAddress + ':' + (conn.remotePort || '')
 
     openHttpConnections[key] = conn
 
