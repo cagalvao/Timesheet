@@ -15,7 +15,6 @@
     "clear_swagger": "find ../infra/docker_volumes/swagger/* ! -name README.md -type f | tac | xargs rm -rf",
     "update_swagger": "rsync swagger/doc/* ../infra/docker_volumes/swagger/",
     "swagger": "npm run clear_swagger && node swagger/swagger.js && npm run update_swagger",
-    "install_in_docker": "npm run refresh_docker_volume && docker exec -it project_mono_api_1 /bin/bash -c \"cd app && npm install\"",
     "test": "NODE_ENV=test node_modules/mocha/bin/_mocha --recursive **/*.spec.js && standard",
     "test_with_docker": "npm run refresh_docker_volume && docker run --rm -t -v ${PWD}/../infra/docker_volumes/mono_api:/app cagalvao/node_carbon_pm2:latest bash -c \"cd app && npm run test\"",
     "coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha **/*.spec.js -- -u exports -R spec -b --recursive",
