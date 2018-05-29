@@ -37,6 +37,7 @@ describe('/timesheet_service', function () {
     it('listTimesheets with employee should return with SUCCESS', function (done) {
       const response = [
         {
+          id: 22,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -45,6 +46,7 @@ describe('/timesheet_service', function () {
           entry_4: '19:15:19'
         },
         {
+          id: 23,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -75,6 +77,7 @@ describe('/timesheet_service', function () {
     it('listTimesheets with employee, year should return with SUCCESS', function (done) {
       const response = [
         {
+          id: 22,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -83,6 +86,7 @@ describe('/timesheet_service', function () {
           entry_4: '19:15:19'
         },
         {
+          id: 23,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -114,6 +118,7 @@ describe('/timesheet_service', function () {
     it('listTimesheets with employee, year, month should return with SUCCESS', function (done) {
       const response = [
         {
+          id: 22,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -122,6 +127,7 @@ describe('/timesheet_service', function () {
           entry_4: '19:15:19'
         },
         {
+          id: 23,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -154,6 +160,7 @@ describe('/timesheet_service', function () {
     it('listTimesheets with employee, year, month, day should return with SUCCESS', function (done) {
       const response = [
         {
+          id: 22,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -162,6 +169,7 @@ describe('/timesheet_service', function () {
           entry_4: '19:15:19'
         },
         {
+          id: 23,
           name: 'Cássio Galvão',
           workday: '21/05/2018',
           entry_1: '10:36:16',
@@ -196,6 +204,7 @@ describe('/timesheet_service', function () {
   describe('insertTimesheet', function () {
     it('insertTimesheet should return with SUCCESS', function (done) {
       const response = [{
+        id: 22,
         name: 'Cássio Galvão',
         workday: '04/06/2018',
         entry_1: '10:16:16',
