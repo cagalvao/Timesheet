@@ -6,16 +6,16 @@ import { createPost } from "../actions";
 
 class PostsNew extends Component {
   renderField(field) {
-    const { meta: { touched, error } } = field;
+    const {
+      meta: { touched, error }
+    } = field;
     const className = `form-group ${touched && error ? "has-danger" : ""}`;
 
     return (
       <div className={className}>
         <label>{field.label}</label>
         <input className="form-control" type="text" {...field.input} />
-        <div className="text-help">
-          {touched ? error : ""}
-        </div>
+        <div className="text-help">{touched ? error : ""}</div>
       </div>
     );
   }
@@ -46,8 +46,12 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
-        <button type="submit" className="btn btn-primary">Submit</button>
-        <Link to="/" className="btn btn-danger">Cancel</Link>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+        <Link to="/" className="btn btn-danger">
+          Cancel
+        </Link>
       </form>
     );
   }
@@ -76,4 +80,9 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: "PostsNewForm"
-})(connect(null, { createPost })(PostsNew));
+})(
+  connect(
+    null,
+    { createPost }
+  )(PostsNew)
+);
