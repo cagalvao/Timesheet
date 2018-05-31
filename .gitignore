@@ -23,3 +23,7 @@ infra/docker_volumes/swagger/*
 
 infra/docker_volumes/mono_api/README.md
 infra/docker_volumes/mono_api/wait-for-it.sh
+
+/.cache
+/.config
+/.yarn
