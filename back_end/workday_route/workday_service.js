@@ -1,4 +1,6 @@
 'use strict'
+const moment = require('moment')
+
 const db = require('../utils/db')
 
 const workdayQuery = 'SELECT id, DATE_FORMAT(workday, "%d/%m/%Y") as workday FROM workday'
@@ -10,7 +12,9 @@ async function listWorkdays () {
 }
 
 async function insertWorkday (params) {
-  const { workday } = params
+  let { workday } = params
+  workday = moment(workday, 'DD/MM/YYYY').format('YYYY-MM-DD')
+
   let existingWorkday = await getWorkdayByDate(workday)
 
   if (existingWorkday.length === 0) {

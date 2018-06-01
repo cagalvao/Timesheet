@@ -1,4 +1,6 @@
 'use strict'
+const moment = require('moment')
+
 const db = require('../utils/db')
 
 const { getWorkdayId } = require('../workday_route/workday_service')
@@ -67,7 +69,10 @@ async function insertEmployeeTimesheet (workdayId, employeeId, timesheetId) {
 }
 
 async function insertTimesheet (timesheet) {
-  const { employeeId, workday, entry_1, entry_2, entry_3, entry_4 } = timesheet
+  const { employeeId, entry_1, entry_2, entry_3, entry_4 } = timesheet
+
+  let { workday } = timesheet
+  workday = moment(workday, 'DD/MM/YYYY').format('YYYY-MM-DD')
 
   const workdayId = await getWorkdayId(workday)
   await deleteExistentEntries(employeeId, workdayId)
