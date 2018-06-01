@@ -3,14 +3,12 @@ const db = require('../utils/db')
 
 const { getWorkdayId } = require('../workday_route/workday_service')
 
-const employeeTimesheetQuery = 'select et.id, e.name, DATE_FORMAT(w.workday, "%d/%m/%Y") as workday, t.entry_1, t.entry_2, t.entry_3, t.entry_4 from employee_timesheet et inner join employee e on e.id = et.id_employee inner join workday w on w.id = et.id_workday inner join timesheet t on t.id = et.id_timesheet'
-
 async function listTimesheets ({ employee, year, month, day }) {
   if (employee === undefined) {
     await Promise.resolve(undefined)
   }
 
-  let query = employeeTimesheetQuery
+  let query = getEmployeeTimesheetQueryBeginning()
 
   if (employee) {
     query += ' where e.id = ' + employee
@@ -28,12 +26,27 @@ async function listTimesheets ({ employee, year, month, day }) {
     }
   }
 
+  query += getEmployeeTimesheetQueryEnding()
+
   const timesheets = await db.query(query)
   return timesheets
 }
 
+function getEmployeeTimesheetQueryBeginning () {
+  return 'select et.id, e.name, DATE_FORMAT(w.workday, "%d/%m/%Y") as workday, t.entry_1, t.entry_2, t.entry_3, t.entry_4, TIMEDIFF(ADDTIME(TIMEDIFF(t.entry_2, t.entry_1), TIMEDIFF(t.entry_4, t.entry_3)), "08:00:00") as diff, @accDiff := ADDTIME(@accDiff, TIMEDIFF(ADDTIME(TIMEDIFF(t.entry_2, t.entry_1), TIMEDIFF(t.entry_4, t.entry_3)), "08:00:00")) as accDiff from employee_timesheet et inner join employee e on e.id = et.id_employee inner join workday w on w.id = et.id_workday inner join timesheet t on t.id = et.id_timesheet, (select @accDiff := "00:00:00") as t1'
+}
+
+function getEmployeeTimesheetQueryEnding () {
+  return ' group by et.id order by w.workday desc'
+}
+
 async function getEmployeeTimesheetById (employeeTimesheetId) {
-  const timesheet = await db.query(`${employeeTimesheetQuery} where et.id = ${employeeTimesheetId}`)
+  let query = getEmployeeTimesheetQueryBeginning()
+  query += ` where et.id = ${employeeTimesheetId}`
+  query += getEmployeeTimesheetQueryEnding()
+
+  const timesheet = await db.query(query)
+
   return timesheet
 }
 
@@ -66,7 +79,30 @@ async function insertTimesheet (timesheet) {
   return employeeTimesheet[0]
 }
 
+async function getTimesheetIdByEmployeeTimesheet (employeeTimesheetId) {
+  const results = await db.query(`SELECT id_timesheet FROM employee_timesheet where id = ${employeeTimesheetId}`)
+
+  return results[0].id_timesheet
+}
+
+async function updateTimesheet (timesheetId, entry1, entry2, entry3, entry4) {
+  const results = await db.query(`UPDATE timesheet SET entry_1 = "${entry1}", entry_2 = "${entry2}", entry_3 = "${entry3}", entry_4 = "${entry4}" WHERE id = ${timesheetId}`)
+
+  return results.affectedRows
+}
+
+async function editTimesheet (timesheet) {
+  const { id, entry_1, entry_2, entry_3, entry_4 } = timesheet
+
+  const timesheetId = await getTimesheetIdByEmployeeTimesheet(id)
+
+  const affectedRows = await updateTimesheet(timesheetId, entry_1, entry_2, entry_3, entry_4)
+
+  return affectedRows
+}
+
 module.exports = {
   listTimesheets,
-  insertTimesheet
+  insertTimesheet,
+  editTimesheet
 }

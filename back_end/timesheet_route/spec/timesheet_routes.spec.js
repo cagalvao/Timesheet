@@ -22,7 +22,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           name: 'Cássio Galvão',
@@ -30,7 +32,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -123,7 +127,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           name: 'Cássio Galvão',
@@ -131,7 +137,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -227,7 +235,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           name: 'Cássio Galvão',
@@ -235,7 +245,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -334,7 +346,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           name: 'Cássio Galvão',
@@ -342,7 +356,9 @@ describe('/timesheet_routes', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -443,7 +459,9 @@ describe('/timesheet_routes', function () {
         entry_1: '10:16:16',
         entry_2: '12:12:41',
         entry_3: '13:27:33',
-        entry_4: '19:15:19'
+        entry_4: '19:15:19',
+        diff: '-15:00:05',
+        accDiff: '-15:00:05'
       }
 
       const body = {
@@ -452,7 +470,9 @@ describe('/timesheet_routes', function () {
         entry_1: '10:16:16',
         entry_2: '12:12:41',
         entry_3: '13:27:33',
-        entry_4: '19:15:19'
+        entry_4: '19:15:19',
+        diff: '-15:00:05',
+        accDiff: '-15:00:05'
       }
 
       const insertTimesheet = sinon.stub().resolves(response)
@@ -543,6 +563,121 @@ describe('/timesheet_routes', function () {
       }
 
       route.insertTimesheet(req, res)
+    })
+  })
+
+  describe('editTimesheet', function () {
+    it('editTimesheet should return with SUCCESS', function (done) {
+      const response = {
+        id: '1',
+        name: 'Cássio Galvão',
+        workday: '04/06/2018',
+        entry_1: '10:16:16',
+        entry_2: '12:12:41',
+        entry_3: '13:27:33',
+        entry_4: '19:15:19',
+        diff: '-15:00:05',
+        accDiff: '-15:00:05'
+      }
+
+      const body = {
+        id: 1,
+        workday: '2018-06-04',
+        entry_1: '10:16:16',
+        entry_2: '12:12:41',
+        entry_3: '13:27:33',
+        entry_4: '19:15:19'
+      }
+
+      const editTimesheet = sinon.stub().resolves(response)
+
+      const route = proxyquire('../timesheet_routes', {
+        './timesheet_service': {
+          editTimesheet
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(200)
+          done()
+        }
+      }
+
+      route.editTimesheet(req, res)
+    })
+
+    it('editTimesheet should return with NOT FOUND', function (done) {
+      const response = 0
+
+      const body = {
+        id: 1,
+        workday: '2018-06-04',
+        entry_1: '10:16:16',
+        entry_2: '12:12:41',
+        entry_3: '13:27:33',
+        entry_4: '19:15:19'
+      }
+
+      const editTimesheet = sinon.stub().resolves(response)
+
+      const route = proxyquire('../timesheet_routes', {
+        './timesheet_service': {
+          editTimesheet
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(404)
+          done()
+        }
+      }
+
+      route.editTimesheet(req, res)
+    })
+
+    it('editTimesheet should return with ERROR', function (done) {
+      const body = {
+        id: 1,
+        workday: '2018-06-04',
+        entry_1: '10:16:16',
+        entry_2: '12:12:41',
+        entry_3: '13:27:33',
+        entry_4: '19:15:19'
+      }
+
+      const editTimesheet = sinon.stub().rejects(Error('generic error'))
+
+      const route = proxyquire('../timesheet_routes', {
+        './timesheet_service': {
+          editTimesheet
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        status: (code) => {
+          code.should.be.equal(500)
+        },
+        send: (error) => {
+          error.should.be.equal('generic error')
+          done()
+        }
+      }
+
+      route.editTimesheet(req, res)
     })
   })
 })

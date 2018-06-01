@@ -1,0 +1,27 @@
+{
+  "post": {
+    "description": "Edita um Timesheet",
+    "parameters": [
+      {
+        "in": "body",
+        "name": "body",
+        "description": "Objeto Timesheet",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/EditEmployeeTimesheet"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "ok"
+      },
+      "404": {
+        "description": "Not Found"
+      },
+      "500": {
+        "description": "Server Error"
+      }
+    }
+  }
+}

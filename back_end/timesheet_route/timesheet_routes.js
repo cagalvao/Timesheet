@@ -66,10 +66,29 @@ function insertTimesheet (req, res) {
   })()
 }
 
+function editTimesheet (req, res) {
+  Promise.coroutine(function * () {
+    const params = Object.assign({}, req.body)
+
+    try {
+      const affectedRows = yield timesheet.editTimesheet(params)
+
+      if (affectedRows === 0) {
+        return res.sendStatus(404)
+      }
+      return res.sendStatus(200)
+    } catch (err) {
+      res.status(500)
+      return res.send(err.message)
+    }
+  })()
+}
+
 module.exports = {
   getEmployeeTimesheet,
   getEmployeeTimesheetByYear,
   getEmployeeTimesheetByMonth,
   getEmployeeTimesheetByDay,
-  insertTimesheet
+  insertTimesheet,
+  editTimesheet
 }

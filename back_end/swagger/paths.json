@@ -20,6 +20,9 @@
   "/timesheets/new": {
     "$ref": "../timesheet_route/swagger/paths/NewEmployeeTimesheet.json"
   },
+  "/timesheets/edit": {
+    "$ref": "../timesheet_route/swagger/paths/EditEmployeeTimesheet.json"
+  },
   "/workdays": {
     "$ref": "../workday_route/swagger/paths/GetWorkdays.json"
   },

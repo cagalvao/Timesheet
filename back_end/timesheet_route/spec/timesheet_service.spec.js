@@ -43,7 +43,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           id: 23,
@@ -52,7 +54,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -83,7 +87,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           id: 23,
@@ -92,7 +98,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -124,7 +132,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           id: 23,
@@ -133,7 +143,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -166,7 +178,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         },
         {
           id: 23,
@@ -175,7 +189,9 @@ describe('/timesheet_service', function () {
           entry_1: '10:36:16',
           entry_2: '12:12:41',
           entry_3: '13:07:33',
-          entry_4: '19:15:19'
+          entry_4: '19:15:19',
+          diff: '-15:00:05',
+          accDiff: '-15:00:05'
         }
       ]
 
@@ -210,7 +226,9 @@ describe('/timesheet_service', function () {
         entry_1: '10:16:16',
         entry_2: '12:12:41',
         entry_3: '13:27:33',
-        entry_4: '19:15:19'
+        entry_4: '19:15:19',
+        diff: '-15:00:05',
+        accDiff: '-15:00:05'
       }]
 
       const workdayResponse = [
@@ -244,6 +262,34 @@ describe('/timesheet_service', function () {
       Promise.coroutine(function * () {
         const timesheet = yield service.insertTimesheet(body)
         timesheet.should.deepEqual(response[0])
+
+        done()
+      })()
+    })
+  })
+
+  describe('editTimesheet', function () {
+    it('editTimesheet should return with SUCCESS', function (done) {
+      const body = {
+        id: 1,
+        workday: '2018-06-04',
+        entry_1: '10:16:16',
+        entry_2: '12:12:41',
+        entry_3: '13:27:33',
+        entry_4: '19:15:19'
+      }
+
+      const service = proxyquire('../timesheet_service', {
+        '../utils/db': {
+          query: sinon.stub()
+          .onCall(0).resolves([{ id_timesheet: 2 }])
+          .onCall(1).resolves({ affectedRows: 1 })
+        }
+      })
+
+      Promise.coroutine(function * () {
+        const affectedRows = yield service.editTimesheet(body)
+        affectedRows.should.equal(1)
 
         done()
       })()
