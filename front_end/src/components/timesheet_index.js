@@ -2,20 +2,22 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchMonthTimesheets } from "../actions";
+import { fetchMonthTimesheets, editTimesheet } from "../actions";
 
 class TimesheetIndex extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentTimesheet: -1,
+      currentTimesheet: {},
       isEditing: false
     };
 
     this.editTimesheet = this.editTimesheet.bind(this);
     this.saveTimesheet = this.saveTimesheet.bind(this);
     this.cancelEditing = this.cancelEditing.bind(this);
+
+    this.updateField = this.updateField.bind(this);
   }
 
   componentDidMount() {
@@ -25,19 +27,26 @@ class TimesheetIndex extends Component {
   editTimesheet(ts) {
     this.setState({
       isEditing: true,
-      currentTimesheet: ts.id
+      currentTimesheet: Object.assign({}, ts)
     });
   }
 
-  saveTimesheet(ts) {
-    console.log(ts)
+  saveTimesheet() {
+    this.props.editTimesheet(this.state.currentTimesheet, () => {
+      this.cancelEditing();
+      this.props.fetchMonthTimesheets();
+    })
   }
 
   cancelEditing() {
     this.setState({
       isEditing: false,
-      currentTimesheet: -1
+      currentTimesheet: {}
     });
+  }
+
+  updateField(field, event) {
+    this.state.currentTimesheet[field] = event.target.value;
   }
 
   renderTimesheets() {
@@ -45,10 +54,12 @@ class TimesheetIndex extends Component {
   }
 
   renderButtons(ts) {
-    if (this.state.isEditing && this.state.currentTimesheet === ts.id) {
+    if (this.state.isEditing && this.state.currentTimesheet.id === ts.id) {
       return (
         <div>
-          <button className="btn btn-primary" onClick={this.saveTimesheet.bind(this, ts)}>Salvar</button>
+          <button className="btn btn-primary" onClick={this.saveTimesheet}>
+            Salvar
+          </button>
           <button className="btn btn-primary" onClick={this.cancelEditing}>
             Cancelar
           </button>
@@ -66,7 +77,7 @@ class TimesheetIndex extends Component {
   }
 
   renderFields(ts) {
-    if (this.state.isEditing && this.state.currentTimesheet === ts.id) {
+    if (this.state.isEditing && this.state.currentTimesheet.id === ts.id) {
       return this.renderInputFields(ts);
     }
     return this.renderTextFields(ts);
@@ -80,6 +91,8 @@ class TimesheetIndex extends Component {
         <td>{ts.entry_2}</td>
         <td>{ts.entry_3}</td>
         <td>{ts.entry_4}</td>
+        <td>{ts.diff}</td>
+        <td>{ts.accDiff}</td>
         <td>{this.renderButtons(ts)}</td>
       </tr>
     );
@@ -88,21 +101,37 @@ class TimesheetIndex extends Component {
   renderInputFields(ts) {
     return (
       <tr key={ts.id}>
+        <td>{ts.diff}</td>
         <td>
-          <input type="text" defaultValue={ts.workday} />
+          <input
+            type="text"
+            defaultValue={ts.entry_1}
+            onChange={e => this.updateField("entry_1", e)}
+          />
         </td>
         <td>
-          <input type="text" defaultValue={ts.entry_1} />
+          <input
+            type="text"
+            defaultValue={ts.entry_2}
+            onChange={e => this.updateField("entry_2", e)}
+          />
         </td>
         <td>
-          <input type="text" defaultValue={ts.entry_2} />
+          <input
+            type="text"
+            defaultValue={ts.entry_3}
+            onChange={e => this.updateField("entry_3", e)}
+          />
         </td>
         <td>
-          <input type="text" defaultValue={ts.entry_3} />
+          <input
+            type="text"
+            defaultValue={ts.entry_4}
+            onChange={e => this.updateField("entry_4", e)}
+          />
         </td>
-        <td>
-          <input type="text" defaultValue={ts.entry_4} value={ts.entry_4} />
-        </td>
+        <td>{ts.diff}</td>
+        <td>{ts.accDiff}</td>
         <td>{this.renderButtons(ts)}</td>
       </tr>
     );
@@ -120,6 +149,8 @@ class TimesheetIndex extends Component {
               <th>1ª Saída</th>
               <th>2ª Entrada</th>
               <th>2ª Saída</th>
+              <th>Total</th>
+              <th>Saldo</th>
               <th />
             </tr>
           </thead>
@@ -131,20 +162,12 @@ class TimesheetIndex extends Component {
 }
 
 function mapStateToProps(state) {
-  return { timesheets: state.timesheets };
+  return {
+    timesheets: state.timesheets
+  };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchMonthTimesheets }
+  { fetchMonthTimesheets, editTimesheet }
 )(TimesheetIndex);
-
-TimesheetIndex.defaultProps = {
-  fetchMonthTimesheets: PropTypes.func,
-  timesheets: PropTypes.array
-};
-
-TimesheetIndex.propTypes = {
-  fetchMonthTimesheets: PropTypes.func,
-  timesheets: PropTypes.array
-};

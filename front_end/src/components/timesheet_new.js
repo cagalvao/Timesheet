@@ -5,6 +5,12 @@ import { connect } from "react-redux";
 import { createPost } from "../actions";
 
 class PostsNew extends Component {
+  onSubmit(values) {
+    this.props.createPost(values, () => {
+      this.props.history.push("/");
+    });
+  }
+
   renderField(field) {
     const {
       meta: { touched, error }
@@ -18,12 +24,6 @@ class PostsNew extends Component {
         <div className="text-help">{touched ? error : ""}</div>
       </div>
     );
-  }
-
-  onSubmit(values) {
-    this.props.createPost(values, () => {
-      this.props.history.push("/");
-    });
   }
 
   render() {
