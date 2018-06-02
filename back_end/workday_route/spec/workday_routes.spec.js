@@ -14,7 +14,7 @@ describe('/workday_routes', function () {
   })
 
   describe('getAllWorkdays', function () {
-    it('getAllWorkdays should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           id: 11,
@@ -50,7 +50,7 @@ describe('/workday_routes', function () {
       route.getAllWorkdays(req, res)
     })
 
-    it('getAllWorkdays should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const response = {}
 
       const listWorkdays = sinon.stub().resolves(response)
@@ -73,7 +73,7 @@ describe('/workday_routes', function () {
       route.getAllWorkdays(req, res)
     })
 
-    it('getAllWorkdays should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const listWorkdays = sinon.stub().rejects(Error('generic error'))
 
       const route = proxyquire('../workday_routes', {
@@ -99,7 +99,7 @@ describe('/workday_routes', function () {
   })
 
   describe('insertWorkday', function () {
-    it('insertWorkday should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = {
         id: 34,
         workday: '08/12/2018'
@@ -130,7 +130,7 @@ describe('/workday_routes', function () {
       route.insertWorkday(req, res)
     })
 
-    it('insertWorkday should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const response = {}
 
       const body = {
@@ -159,7 +159,7 @@ describe('/workday_routes', function () {
       route.insertWorkday(req, res)
     })
 
-    it('insertWorkday should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const body = {
         workday: '2018-12-08'
       }

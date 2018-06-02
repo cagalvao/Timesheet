@@ -14,7 +14,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('getEmployeeTimesheet', function () {
-    it('getEmployeeTimesheet should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           name: 'Cássio Galvão',
@@ -62,7 +62,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheet(req, res)
     })
 
-    it('getEmployeeTimesheet should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const response = {}
 
       const getTimesheets = sinon.stub().resolves(response)
@@ -89,7 +89,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheet(req, res)
     })
 
-    it('getEmployeeTimesheet should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const getTimesheets = sinon.stub().rejects(Error('generic error'))
 
       const route = proxyquire('../timesheet_routes', {
@@ -119,7 +119,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('getEmployeeTimesheetByYear', function () {
-    it('getEmployeeTimesheetByYear should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           name: 'Cássio Galvão',
@@ -168,7 +168,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheetByYear(req, res)
     })
 
-    it('getEmployeeTimesheetByYear should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const response = {}
 
       const getTimesheets = sinon.stub().resolves(response)
@@ -196,7 +196,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheetByYear(req, res)
     })
 
-    it('getEmployeeTimesheetByYear should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const getTimesheets = sinon.stub().rejects(Error('generic error'))
 
       const route = proxyquire('../timesheet_routes', {
@@ -227,7 +227,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('getEmployeeTimesheetByMonth', function () {
-    it('getEmployeeTimesheetByMonth should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           name: 'Cássio Galvão',
@@ -277,7 +277,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheetByMonth(req, res)
     })
 
-    it('getEmployeeTimesheetByMonth should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const response = {}
 
       const getTimesheets = sinon.stub().resolves(response)
@@ -306,7 +306,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheetByMonth(req, res)
     })
 
-    it('getEmployeeTimesheetByMonth should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const getTimesheets = sinon.stub().rejects(Error('generic error'))
 
       const route = proxyquire('../timesheet_routes', {
@@ -338,7 +338,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('getEmployeeTimesheetByDay', function () {
-    it('getEmployeeTimesheetByDay should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           name: 'Cássio Galvão',
@@ -389,7 +389,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheetByDay(req, res)
     })
 
-    it('getEmployeeTimesheetByDay should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const response = {}
 
       const getTimesheets = sinon.stub().resolves(response)
@@ -419,7 +419,7 @@ describe('/timesheet_routes', function () {
       route.getEmployeeTimesheetByDay(req, res)
     })
 
-    it('getEmployeeTimesheetByDay should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const getTimesheets = sinon.stub().rejects(Error('generic error'))
 
       const route = proxyquire('../timesheet_routes', {
@@ -452,7 +452,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('insertTimesheet', function () {
-    it('insertTimesheet should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const body = {
         employeeId: 1,
         workday: '2018-06-04',
@@ -486,7 +486,7 @@ describe('/timesheet_routes', function () {
       route.insertTimesheet(req, res)
     })
 
-    it('insertTimesheet should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const body = {
         employeeId: 1,
         workday: '2018-06-04',
@@ -518,7 +518,7 @@ describe('/timesheet_routes', function () {
       route.insertTimesheet(req, res)
     })
 
-    it('insertTimesheet should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const body = {
         employeeId: 1,
         workday: '2018-06-04',
@@ -555,7 +555,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('editTimesheet', function () {
-    it('editTimesheet should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const body = {
         id: 1,
         workday: '2018-06-04',
@@ -587,7 +587,7 @@ describe('/timesheet_routes', function () {
       route.editTimesheet(req, res)
     })
 
-    it('editTimesheet should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const body = {
         id: 1,
         workday: '2018-06-04',
@@ -619,7 +619,7 @@ describe('/timesheet_routes', function () {
       route.editTimesheet(req, res)
     })
 
-    it('editTimesheet should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const body = {
         id: 1,
         workday: '2018-06-04',
@@ -656,7 +656,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('addTimesheetEntry', function () {
-    it('addTimesheetEntry should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const body = {
         id: 22,
         employeeId: 1,
@@ -686,7 +686,7 @@ describe('/timesheet_routes', function () {
       route.addTimesheetEntry(req, res)
     })
 
-    it('addTimesheetEntry should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const body = {
         id: 22,
         employeeId: 1,
@@ -716,7 +716,7 @@ describe('/timesheet_routes', function () {
       route.addTimesheetEntry(req, res)
     })
 
-    it('addTimesheetEntry should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const body = {
         id: 22,
         employeeId: 1,
@@ -751,7 +751,7 @@ describe('/timesheet_routes', function () {
   })
 
   describe('deleteTimesheet', function () {
-    it('deleteTimesheet should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const body = {
         id: 22
       }
@@ -778,7 +778,7 @@ describe('/timesheet_routes', function () {
       route.deleteTimesheet(req, res)
     })
 
-    it('deleteTimesheet should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const body = {
         id: 22
       }
@@ -805,7 +805,7 @@ describe('/timesheet_routes', function () {
       route.deleteTimesheet(req, res)
     })
 
-    it('deleteTimesheet should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const body = {
         id: 22
       }

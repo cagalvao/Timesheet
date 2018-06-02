@@ -16,7 +16,7 @@ describe('/timesheet_service', function () {
   })
 
   describe('getTimesheets', function () {
-    it('getTimesheets with no employee should return with NOT FOUND', function (done) {
+    it('with no employee should return with NOT FOUND', function (done) {
       const params = {}
 
       const service = proxyquire('../timesheet_service', {
@@ -34,7 +34,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('getTimesheets with employee should return with SUCCESS', function (done) {
+    it('with employee should return with SUCCESS', function (done) {
       const response = [
         {
           id: 22,
@@ -78,7 +78,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('getTimesheets with employee, year should return with SUCCESS', function (done) {
+    it('with employee, year should return with SUCCESS', function (done) {
       const response = [
         {
           id: 22,
@@ -123,7 +123,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('getTimesheets with employee, year, month should return with SUCCESS', function (done) {
+    it('with employee, year, month should return with SUCCESS', function (done) {
       const response = [
         {
           id: 22,
@@ -169,7 +169,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('getTimesheets with employee, year, month, day should return with SUCCESS', function (done) {
+    it('with employee, year, month, day should return with SUCCESS', function (done) {
       const response = [
         {
           id: 22,
@@ -218,7 +218,7 @@ describe('/timesheet_service', function () {
   })
 
   describe('insertTimesheet', function () {
-    it('insertTimesheet should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const workdayResponse = [
         {
           id: 11
@@ -255,7 +255,7 @@ describe('/timesheet_service', function () {
   })
 
   describe('editTimesheet', function () {
-    it('editTimesheet should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const body = {
         id: 1,
         workday: '04/06/2018',
@@ -282,7 +282,7 @@ describe('/timesheet_service', function () {
   })
 
   describe('addTimesheetEntry', function () {
-    it('addTimesheetEntry new timesheet should return with SUCCESS', function (done) {
+    it('new timesheet should return with SUCCESS', function (done) {
       const service = proxyquire('../timesheet_service', {
         '../utils/db': {
           query: sinon.stub()
@@ -301,7 +301,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('addTimesheetEntry entry_1 should return with SUCCESS', function (done) {
+    it('entry_1 should return with SUCCESS', function (done) {
       const response = [{
         id: 22,
         employeeId: 1,
@@ -329,7 +329,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('addTimesheetEntry entry_2 should return with SUCCESS', function (done) {
+    it('entry_2 should return with SUCCESS', function (done) {
       const response = [{
         id: 22,
         employeeId: 1,
@@ -358,7 +358,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('addTimesheetEntry entry_3 should return with SUCCESS', function (done) {
+    it('entry_3 should return with SUCCESS', function (done) {
       const response = [{
         id: 22,
         employeeId: 1,
@@ -388,7 +388,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('addTimesheetEntry entry_4 should return with SUCCESS', function (done) {
+    it('entry_4 should return with SUCCESS', function (done) {
       const response = [{
         id: 22,
         employeeId: 1,
@@ -419,7 +419,7 @@ describe('/timesheet_service', function () {
       })()
     })
 
-    it('addTimesheetEntry should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const response = [{
         id: 22,
         employeeId: 1,
@@ -452,7 +452,7 @@ describe('/timesheet_service', function () {
   })
 
   describe('deleteTimesheet', function () {
-    it('deleteTimesheet should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const service = proxyquire('../timesheet_service', {
         '../utils/db': {
           query: sinon.stub()

@@ -17,7 +17,7 @@ describe('/employee_service', function () {
   })
 
   describe('getEmployees', function () {
-    it('getEmployees should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           id: 1,
@@ -45,7 +45,7 @@ describe('/employee_service', function () {
   })
 
   describe('getEmployee', function () {
-    it('getEmployee should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           id: 1,

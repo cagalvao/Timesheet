@@ -17,7 +17,7 @@ describe('/workday_service', function () {
   })
 
   describe('listWorkdays', function () {
-    it('listWorkdays should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const response = [
         {
           id: 11,
@@ -49,7 +49,7 @@ describe('/workday_service', function () {
   })
 
   describe('getWorkdayId', function () {
-    it('getWorkdayId with non existing workday should return with SUCCESS', function (done) {
+    it('with non existing workday should return with SUCCESS', function (done) {
       const response = [
         {
           id: 11
@@ -74,7 +74,7 @@ describe('/workday_service', function () {
       })()
     })
 
-    it('getWorkdayId with existing workday should return with SUCCESS', function (done) {
+    it('with existing workday should return with SUCCESS', function (done) {
       const response = [
         {
           id: 11
@@ -96,7 +96,7 @@ describe('/workday_service', function () {
       })()
     })
 
-    it('getWorkdayId with existing workday by date should return with SUCCESS', function (done) {
+    it('with existing workday by date should return with SUCCESS', function (done) {
       const response = [
         {
           id: 11
@@ -121,7 +121,7 @@ describe('/workday_service', function () {
   })
 
   describe('insertWorkday', function () {
-    it('insertWorkday with non existing workday should return with SUCCESS', function (done) {
+    it('with non existing workday should return with SUCCESS', function (done) {
       const response = [
         {
           id: 11
@@ -145,7 +145,7 @@ describe('/workday_service', function () {
       })()
     })
 
-    it('insertWorkday with existing workday should return with SUCCESS', function (done) {
+    it('with existing workday should return with SUCCESS', function (done) {
       const response = [
         {
           id: 11

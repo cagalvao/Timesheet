@@ -14,7 +14,7 @@ describe('/employee_routes', function () {
   })
 
   describe('getAllEmployees', function () {
-    it('getAllEmployees should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const getEmployees = sinon.stub().resolves([
         {
           id: 1,
@@ -53,7 +53,7 @@ describe('/employee_routes', function () {
       route.getAllEmployees(req, res)
     })
 
-    it('getAllEmployees should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const getEmployees = sinon.stub().resolves([])
 
       const route = proxyquire('../employee_routes', {
@@ -74,7 +74,7 @@ describe('/employee_routes', function () {
       route.getAllEmployees(req, res)
     })
 
-    it('getAllEmployees should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const getEmployees = sinon.stub().rejects(Error('generic error'))
 
       const route = proxyquire('../employee_routes', {
@@ -100,7 +100,7 @@ describe('/employee_routes', function () {
   })
 
   describe('getEmployeeById', function () {
-    it('getEmployeeById should return with SUCCESS', function (done) {
+    it('should return with SUCCESS', function (done) {
       const getEmployee = sinon.stub().resolves({
         id: 1,
         name: 'Heisenberg'
@@ -131,7 +131,7 @@ describe('/employee_routes', function () {
       route.getEmployeeById(req, res)
     })
 
-    it('getEmployeeById should return with NOT FOUND', function (done) {
+    it('should return with NOT FOUND', function (done) {
       const getEmployee = sinon.stub().resolves({})
 
       const route = proxyquire('../employee_routes', {
@@ -156,7 +156,7 @@ describe('/employee_routes', function () {
       route.getEmployeeById(req, res)
     })
 
-    it('getEmployeeById should return with ERROR', function (done) {
+    it('should return with ERROR', function (done) {
       const getEmployee = sinon.stub().rejects(Error('generic error'))
 
       const route = proxyquire('../employee_routes', {
