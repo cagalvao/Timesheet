@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "number",
+      "required": false
+    },
+    "employeeId": {
+      "type": "number",
+      "required": true
+    },
+    "workday": {
+      "type": "string",
+      "required": true
+    },
+    "entry": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

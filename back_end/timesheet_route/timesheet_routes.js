@@ -7,7 +7,7 @@ const timesheet = require('./timesheet_service')
 function getTimesheet (res, params) {
   Promise.coroutine(function * () {
     try {
-      const timesheets = yield timesheet.listTimesheets(params)
+      const timesheets = yield timesheet.getTimesheets(params)
 
       if (_.isEmpty(timesheets)) {
         return res.sendStatus(404)
@@ -53,12 +53,12 @@ function insertTimesheet (req, res) {
     const params = Object.assign({}, req.body)
 
     try {
-      const employeeTimesheet = yield timesheet.insertTimesheet(params)
+      const affectedRows = yield timesheet.insertTimesheet(params)
 
-      if (_.isEmpty(employeeTimesheet)) {
+      if (affectedRows === 0) {
         return res.sendStatus(404)
       }
-      return res.json(employeeTimesheet)
+      return res.sendStatus(200)
     } catch (err) {
       res.status(500)
       return res.send(err.message)
@@ -84,11 +84,30 @@ function editTimesheet (req, res) {
   })()
 }
 
+function addTimesheetEntry (req, res) {
+  Promise.coroutine(function * () {
+    const { id, employeeId, workday, entry } = req.body
+
+    try {
+      const affectedRows = yield timesheet.addTimesheetEntry(id, employeeId, workday, entry)
+
+      if (affectedRows === 0) {
+        return res.sendStatus(404)
+      }
+      return res.sendStatus(200)
+    } catch (err) {
+      res.status(500)
+      return res.send(err.message)
+    }
+  })()
+}
+
 module.exports = {
   getEmployeeTimesheet,
   getEmployeeTimesheetByYear,
   getEmployeeTimesheetByMonth,
   getEmployeeTimesheetByDay,
   insertTimesheet,
-  editTimesheet
+  editTimesheet,
+  addTimesheetEntry
 }

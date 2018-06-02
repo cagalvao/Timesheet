@@ -32,6 +32,9 @@
   "NewEmployeeTimesheet": {
     "$ref": "../timesheet_route/swagger/definitions/NewEmployeeTimesheet.json"
   },
+  "NewEmployeeTimesheetEntry": {
+    "$ref": "../timesheet_route/swagger/definitions/NewEmployeeTimesheetEntry.json"
+  },
   "EditEmployeeTimesheet": {
     "$ref": "../timesheet_route/swagger/definitions/EditEmployeeTimesheet.json"
   },

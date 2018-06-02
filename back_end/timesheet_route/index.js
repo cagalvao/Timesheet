@@ -10,8 +10,9 @@ function getRouter () {
   router.route('/timesheets/:employee/:year').get(routes.getEmployeeTimesheetByYear)
   router.route('/timesheets/:employee/:year/:month').get(routes.getEmployeeTimesheetByMonth)
   router.route('/timesheets/:employee/:year/:month/:day').get(routes.getEmployeeTimesheetByDay)
-  router.route('/timesheets/new').post(routes.insertTimesheet)
+  router.route('/timesheets/new').put(routes.insertTimesheet)
   router.route('/timesheets/edit').post(routes.editTimesheet)
+  router.route('/timesheets/add').put(routes.addTimesheetEntry)
 
   return router
 }

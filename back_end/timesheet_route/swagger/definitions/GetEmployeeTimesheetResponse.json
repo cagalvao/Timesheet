@@ -7,8 +7,16 @@
         "type": "number",
         "required": true
       },
-      "name": {
+      "employeeId": {
+        "type": "number",
+        "required": true
+      },
+      "employeeName": {
         "type": "string",
+        "required": true
+      },
+      "workdayId": {
+        "type": "number",
         "required": true
       },
       "workday": {

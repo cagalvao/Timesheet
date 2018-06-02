@@ -1,23 +1,20 @@
 {
   "put": {
-    "description": "Insere novo dia de trabalho",
+    "description": "Insere nova entrada de tempo no Timesheet para um certo funcionário em um certo dia",
     "parameters": [
       {
         "in": "body",
         "name": "body",
-        "description": "Objeto Workday",
+        "description": "Objeto Timesheet",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/NewWorkday"
+          "$ref": "#/definitions/NewEmployeeTimesheetEntry"
         }
       }
     ],
     "responses": {
       "200": {
-        "description": "ok",
-        "schema": {
-          "$ref": "#/definitions/GetWorkdaySingleResponse"
-        }
+        "description": "ok"
       },
       "500": {
         "description": "Server Error"

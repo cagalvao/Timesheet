@@ -1,5 +1,5 @@
 {
-  "post": {
+  "put": {
     "description": "Insere novo Timesheet",
     "parameters": [
       {
@@ -14,10 +14,7 @@
     ],
     "responses": {
       "200": {
-        "description": "ok",
-        "schema": {
-          "$ref": "#/definitions/GetEmployeeTimesheetSingleResponse"
-        }
+        "description": "ok"
       },
       "500": {
         "description": "Server Error"

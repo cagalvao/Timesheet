@@ -6,7 +6,7 @@ function getRouter () {
   const router = express.Router({ mergeParams: true })
 
   router.route('/workdays').get(routes.getAllWorkdays)
-  router.route('/workdays/new').post(routes.insertWorkday)
+  router.route('/workdays/new').put(routes.insertWorkday)
 
   return router
 }
