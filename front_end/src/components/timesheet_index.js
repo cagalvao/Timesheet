@@ -40,7 +40,9 @@ class TimesheetIndex extends Component {
       entry_3: "",
       entry_4: ""
     };
+
     this.props.addTimesheet(ts);
+
     this.setState({
       isEditing: true,
       currentTimesheet: ts
@@ -99,7 +101,7 @@ class TimesheetIndex extends Component {
     return (
       <button
         className="btn btn-primary"
-        onClick={this.editTimesheet.bind(this, ts)}
+        onClick={() => this.editTimesheet(ts)}
       >
         Editar
       </button>
@@ -196,14 +198,26 @@ class TimesheetIndex extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    timesheets: state.timesheets,
-    employee: state.employee
-  };
-}
+TimesheetIndex.propTypes = {
+  timesheets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fetchMonthTimesheets: PropTypes.func.isRequired,
+  addTimesheet: PropTypes.func.isRequired,
+  createTimesheet: PropTypes.func.isRequired,
+  editTimesheet: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  timesheets: state.timesheets
+});
+
+const mapDispatchToProps = {
+  fetchMonthTimesheets,
+  addTimesheet,
+  createTimesheet,
+  editTimesheet
+};
 
 export default connect(
   mapStateToProps,
-  { fetchMonthTimesheets, addTimesheet, createTimesheet, editTimesheet }
+  mapDispatchToProps
 )(TimesheetIndex);
