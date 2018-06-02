@@ -115,9 +115,16 @@ async function addTimesheetEntry (id, employeeId, workday, entry) {
   return 0
 }
 
+async function deleteTimesheet (id) {
+  const result = await db.query(`delete from timesheet where id = ${id}`)
+
+  return result.affectedRows
+}
+
 module.exports = {
   getTimesheets,
   insertTimesheet,
   editTimesheet,
-  addTimesheetEntry
+  addTimesheetEntry,
+  deleteTimesheet
 }

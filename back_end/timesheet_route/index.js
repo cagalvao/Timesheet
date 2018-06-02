@@ -13,6 +13,7 @@ function getRouter () {
   router.route('/timesheets/new').put(routes.insertTimesheet)
   router.route('/timesheets/edit').post(routes.editTimesheet)
   router.route('/timesheets/add').put(routes.addTimesheetEntry)
+  router.route('/timesheets/delete').delete(routes.deleteTimesheet)
 
   return router
 }

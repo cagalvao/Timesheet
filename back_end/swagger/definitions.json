@@ -38,6 +38,9 @@
   "EditEmployeeTimesheet": {
     "$ref": "../timesheet_route/swagger/definitions/EditEmployeeTimesheet.json"
   },
+  "DeleteEmployeeTimesheet": {
+    "$ref": "../timesheet_route/swagger/definitions/DeleteEmployeeTimesheet.json"
+  },
   "GetWorkdayResponse": {
     "$ref": "../workday_route/swagger/definitions/GetWorkdayResponse.json"
   },

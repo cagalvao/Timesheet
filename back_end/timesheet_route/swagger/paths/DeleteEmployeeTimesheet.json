@@ -1,14 +1,14 @@
 {
-  "put": {
-    "description": "Insere nova entrada de tempo no Timesheet para um certo funcionário em um certo dia",
+  "delete": {
+    "description": "Remove um Timesheet conforme o ID passado",
     "parameters": [
       {
         "in": "body",
         "name": "body",
-        "description": "Entrada de tempo, ID do timesheet, ID do funcionário e dia de trabalho",
+        "description": "ID do Timesheet",
         "required": true,
         "schema": {
-          "$ref": "#/definitions/NewEmployeeTimesheetEntry"
+          "$ref": "#/definitions/DeleteEmployeeTimesheet"
         }
       }
     ],
@@ -17,7 +17,7 @@
         "description": "ok"
       },
       "404": {
-        "description": "Not Found"
+        "description": "Not found"
       },
       "500": {
         "description": "Server Error"

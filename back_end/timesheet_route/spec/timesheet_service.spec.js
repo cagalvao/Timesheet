@@ -450,4 +450,22 @@ describe('/timesheet_service', function () {
       })()
     })
   })
+
+  describe('deleteTimesheet', function () {
+    it('deleteTimesheet should return with SUCCESS', function (done) {
+      const service = proxyquire('../timesheet_service', {
+        '../utils/db': {
+          query: sinon.stub()
+          .onCall(0).resolves({ affectedRows: 1 })
+        }
+      })
+
+      Promise.coroutine(function * () {
+        const affectedRows = yield service.deleteTimesheet(22)
+        affectedRows.should.equal(1)
+
+        done()
+      })()
+    })
+  })
 })

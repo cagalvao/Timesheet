@@ -26,6 +26,9 @@
   "/timesheets/edit": {
     "$ref": "../timesheet_route/swagger/paths/EditEmployeeTimesheet.json"
   },
+  "/timesheets/delete": {
+    "$ref": "../timesheet_route/swagger/paths/DeleteEmployeeTimesheet.json"
+  },
   "/workdays": {
     "$ref": "../workday_route/swagger/paths/GetWorkdays.json"
   },

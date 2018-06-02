@@ -749,4 +749,90 @@ describe('/timesheet_routes', function () {
       route.addTimesheetEntry(req, res)
     })
   })
+
+  describe('deleteTimesheet', function () {
+    it('deleteTimesheet should return with SUCCESS', function (done) {
+      const body = {
+        id: 22
+      }
+
+      const deleteTimesheet = sinon.stub().resolves(1)
+
+      const route = proxyquire('../timesheet_routes', {
+        './timesheet_service': {
+          deleteTimesheet
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(200)
+          done()
+        }
+      }
+
+      route.deleteTimesheet(req, res)
+    })
+
+    it('deleteTimesheet should return with NOT FOUND', function (done) {
+      const body = {
+        id: 22
+      }
+
+      const deleteTimesheet = sinon.stub().resolves(0)
+
+      const route = proxyquire('../timesheet_routes', {
+        './timesheet_service': {
+          deleteTimesheet
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        sendStatus: (code) => {
+          code.should.be.equal(404)
+          done()
+        }
+      }
+
+      route.deleteTimesheet(req, res)
+    })
+
+    it('deleteTimesheet should return with ERROR', function (done) {
+      const body = {
+        id: 22
+      }
+
+      const deleteTimesheet = sinon.stub().rejects(Error('generic error'))
+
+      const route = proxyquire('../timesheet_routes', {
+        './timesheet_service': {
+          deleteTimesheet
+        }
+      })
+
+      const req = {
+        body
+      }
+
+      const res = {
+        status: (code) => {
+          code.should.be.equal(500)
+        },
+        send: (error) => {
+          error.should.be.equal('generic error')
+          done()
+        }
+      }
+
+      route.deleteTimesheet(req, res)
+    })
+  })
 })

@@ -102,6 +102,24 @@ function addTimesheetEntry (req, res) {
   })()
 }
 
+function deleteTimesheet (req, res) {
+  Promise.coroutine(function * () {
+    const { id } = req.body
+
+    try {
+      const affectedRows = yield timesheet.deleteTimesheet(id)
+
+      if (affectedRows === 0) {
+        return res.sendStatus(404)
+      }
+      return res.sendStatus(200)
+    } catch (err) {
+      res.status(500)
+      return res.send(err.message)
+    }
+  })()
+}
+
 module.exports = {
   getEmployeeTimesheet,
   getEmployeeTimesheetByYear,
@@ -109,5 +127,6 @@ module.exports = {
   getEmployeeTimesheetByDay,
   insertTimesheet,
   editTimesheet,
-  addTimesheetEntry
+  addTimesheetEntry,
+  deleteTimesheet
 }
