@@ -2,7 +2,12 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchMonthTimesheets, addTimesheet, createTimesheet, editTimesheet } from "../actions";
+import {
+  fetchMonthTimesheets,
+  addTimesheet,
+  createTimesheet,
+  editTimesheet
+} from "../actions";
 
 class TimesheetIndex extends Component {
   constructor(props) {
@@ -29,17 +34,17 @@ class TimesheetIndex extends Component {
     const ts = {
       id: -1,
       employeeId: 1,
-      workday:"01/06/2018",
-      entry_1:"",
-      entry_2:"",
-      entry_3:"",
-      entry_4:""
-    }
-    this.props.addTimesheet(ts)
+      workday: "01/06/2018",
+      entry_1: "",
+      entry_2: "",
+      entry_3: "",
+      entry_4: ""
+    };
+    this.props.addTimesheet(ts);
     this.setState({
       isEditing: true,
       currentTimesheet: ts
-    })
+    });
   }
 
   editTimesheet(ts) {
@@ -52,13 +57,13 @@ class TimesheetIndex extends Component {
   saveTimesheet() {
     if (this.state.currentTimesheet.id === -1) {
       this.props.createTimesheet(this.state.currentTimesheet, () => {
-        this.cancelEditing();      
-      })
+        this.cancelEditing();
+      });
     } else {
       this.props.editTimesheet(this.state.currentTimesheet, () => {
-        this.cancelEditing();      
-      })
-    }    
+        this.cancelEditing();
+      });
+    }
   }
 
   cancelEditing() {
@@ -66,7 +71,7 @@ class TimesheetIndex extends Component {
       isEditing: false,
       currentTimesheet: {}
     });
-    
+
     this.props.fetchMonthTimesheets();
   }
 

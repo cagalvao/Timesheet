@@ -22,7 +22,7 @@ function fetchEmployee() {
 }
 
 function fetchMonthTimesheets() {
-  const now = moment()
+  const now = moment();
   const request = axios.get(`${API}/timesheets/1/${now.year()}/${now.month()}`);
 
   return dispatch => {
@@ -51,7 +51,7 @@ function createTimesheet(timesheet, callback) {
 }
 
 function addTimesheet(timesheet) {
-  return { type: ADD_TIMESHEET, payload: timesheet }
+  return { type: ADD_TIMESHEET, payload: timesheet };
 }
 
 function editTimesheet(timesheet, callback) {
