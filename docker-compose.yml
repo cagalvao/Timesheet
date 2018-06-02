@@ -20,6 +20,8 @@ services:
     command: >-
       bash -c "./app/wait-for-it.sh mono_db:3306;\
         cd app;\
+        npm set progress=false;\
+        npm install;\
         npm run start"
     volumes:
       - ./infra/docker_volumes/mono_api:/app
@@ -42,10 +44,6 @@ services:
       - '5678:80'
     environment:
       - URL=doc/swagger.json
-  mono_fe:
-    image: mhart/alpine-node
-    volumes:
-      - ./infra/docker_volumes/mono_fe:/app/build  
   
 volumes:
   back_end:
