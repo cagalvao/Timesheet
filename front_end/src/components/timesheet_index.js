@@ -2,7 +2,7 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchMonthTimesheets, editTimesheet } from "../actions";
+import { fetchMonthTimesheets, addTimesheet, createTimesheet, editTimesheet } from "../actions";
 
 class TimesheetIndex extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ class TimesheetIndex extends Component {
       isEditing: false
     };
 
+    this.createTimesheet = this.createTimesheet.bind(this);
     this.editTimesheet = this.editTimesheet.bind(this);
     this.saveTimesheet = this.saveTimesheet.bind(this);
     this.cancelEditing = this.cancelEditing.bind(this);
@@ -24,6 +25,23 @@ class TimesheetIndex extends Component {
     this.props.fetchMonthTimesheets();
   }
 
+  createTimesheet() {
+    const ts = {
+      id: -1,
+      employeeId: 1,
+      workday:"01/06/2018",
+      entry_1:"",
+      entry_2:"",
+      entry_3:"",
+      entry_4:""
+    }
+    this.props.addTimesheet(ts)
+    this.setState({
+      isEditing: true,
+      currentTimesheet: ts
+    })
+  }
+
   editTimesheet(ts) {
     this.setState({
       isEditing: true,
@@ -32,10 +50,15 @@ class TimesheetIndex extends Component {
   }
 
   saveTimesheet() {
-    this.props.editTimesheet(this.state.currentTimesheet, () => {
-      this.cancelEditing();
-      this.props.fetchMonthTimesheets();
-    })
+    if (this.state.currentTimesheet.id === -1) {
+      this.props.createTimesheet(this.state.currentTimesheet, () => {
+        this.cancelEditing();      
+      })
+    } else {
+      this.props.editTimesheet(this.state.currentTimesheet, () => {
+        this.cancelEditing();      
+      })
+    }    
   }
 
   cancelEditing() {
@@ -43,6 +66,8 @@ class TimesheetIndex extends Component {
       isEditing: false,
       currentTimesheet: {}
     });
+    
+    this.props.fetchMonthTimesheets();
   }
 
   updateField(field, event) {
@@ -101,7 +126,7 @@ class TimesheetIndex extends Component {
   renderInputFields(ts) {
     return (
       <tr key={ts.id}>
-        <td>{ts.diff}</td>
+        <td>{ts.workday}</td>
         <td>
           <input
             type="text"
@@ -140,6 +165,11 @@ class TimesheetIndex extends Component {
   render() {
     return (
       <div>
+        <div className="text-xs-right">
+          <button className="btn btn-primary" onClick={this.createTimesheet}>
+            Add a Timesheet
+          </button>
+        </div>
         <h3>Timesheets</h3>
         <table className="table table-hover">
           <thead>
@@ -163,11 +193,12 @@ class TimesheetIndex extends Component {
 
 function mapStateToProps(state) {
   return {
-    timesheets: state.timesheets
+    timesheets: state.timesheets,
+    employee: state.employee
   };
 }
 
 export default connect(
   mapStateToProps,
-  { fetchMonthTimesheets, editTimesheet }
+  { fetchMonthTimesheets, addTimesheet, createTimesheet, editTimesheet }
 )(TimesheetIndex);

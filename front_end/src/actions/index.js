@@ -1,8 +1,10 @@
 import axios from "axios";
+import moment from "moment";
 
 import {
   FETCH_MONTH_TIMESHEETS,
   FETCH_EMPLOYEE,
+  ADD_TIMESHEET,
   CREATE_TIMESHEET,
   EDIT_TIMESHEET
 } from "./types";
@@ -12,14 +14,16 @@ const API = "http://localhost:4000";
 function fetchEmployee() {
   const request = axios.get(`${API}/employees/1`);
 
-  return {
-    type: FETCH_EMPLOYEE,
-    payload: request
+  return dispatch => {
+    request.then(({ data }) => {
+      dispatch({ type: FETCH_EMPLOYEE, payload: data });
+    });
   };
 }
 
 function fetchMonthTimesheets() {
-  const request = axios.get(`${API}/timesheets/1/2018/5`);
+  const now = moment()
+  const request = axios.get(`${API}/timesheets/1/${now.year()}/${now.month()}`);
 
   return dispatch => {
     request.then(({ data }) => {
@@ -29,7 +33,14 @@ function fetchMonthTimesheets() {
 }
 
 function createTimesheet(timesheet, callback) {
-  const request = axios.post(`${API}/timesheets/new`, timesheet);
+  const request = axios.post(`${API}/timesheets/new`, {
+    employeeId: timesheet.employeeId,
+    workday: timesheet.workday,
+    entry_1: timesheet.entry_1,
+    entry_2: timesheet.entry_2,
+    entry_3: timesheet.entry_3,
+    entry_4: timesheet.entry_4
+  });
 
   return dispatch => {
     request.then(({ data }) => {
@@ -37,6 +48,10 @@ function createTimesheet(timesheet, callback) {
       callback();
     });
   };
+}
+
+function addTimesheet(timesheet) {
+  return { type: ADD_TIMESHEET, payload: timesheet }
 }
 
 function editTimesheet(timesheet, callback) {
@@ -53,6 +68,7 @@ function editTimesheet(timesheet, callback) {
 module.exports = {
   fetchEmployee,
   fetchMonthTimesheets,
+  addTimesheet,
   createTimesheet,
   editTimesheet
 };
