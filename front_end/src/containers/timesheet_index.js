@@ -8,7 +8,8 @@ import {
   addTimesheetLine,
   createTimesheet,
   editTimesheet,
-  deleteTimesheet
+  deleteTimesheet,
+  addTimesheetEntry
 } from "../actions";
 
 class TimesheetIndex extends Component {
@@ -25,6 +26,7 @@ class TimesheetIndex extends Component {
     this.saveTimesheet = this.saveTimesheet.bind(this);
     this.deleteTimesheet = this.deleteTimesheet.bind(this);
     this.cancelEditing = this.cancelEditing.bind(this);
+    this.addTimesheetEntry = this.addTimesheetEntry.bind(this);
 
     this.updateField = this.updateField.bind(this);
   }
@@ -68,6 +70,12 @@ class TimesheetIndex extends Component {
         this.cancelEditing();
       });
     }
+  }
+
+  addTimesheetEntry(ts) {
+    this.props.addTimesheetEntry(ts, () => {
+      this.props.fetchMonthTimesheets();
+    });
   }
 
   deleteTimesheet(ts) {
@@ -194,7 +202,7 @@ class TimesheetIndex extends Component {
           </button>
           <button
             className="btn btn-primary"
-            onClick={this.createTimesheetEntry}
+            onClick={this.addTimesheetEntry}
           >
             Add an entry
           </button>
@@ -226,7 +234,8 @@ TimesheetIndex.propTypes = {
   addTimesheetLine: PropTypes.func.isRequired,
   createTimesheet: PropTypes.func.isRequired,
   editTimesheet: PropTypes.func.isRequired,
-  deleteTimesheet: PropTypes.func.isRequired
+  deleteTimesheet: PropTypes.func.isRequired,
+  addTimesheetEntry: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -238,7 +247,8 @@ const mapDispatchToProps = {
   addTimesheetLine,
   createTimesheet,
   editTimesheet,
-  deleteTimesheet
+  deleteTimesheet,
+  addTimesheetEntry
 };
 
 export default connect(

@@ -75,3 +75,19 @@ export function deleteTimesheet(timesheet, callback) {
     });
   };
 }
+
+export function addTimesheetEntry(timesheet, callback) {
+  const request = axios.put(`${API}/timesheets/add`, {
+    id: timesheet.id,
+    employeeId: 1,
+    workday: moment().format("DD/MM/YYYY"),
+    entry: moment().format('HH:mm:ss')
+  });
+
+  return dispatch => {
+    request.then(() => {
+      dispatch({ type: ADD_ENTRY });
+      callback();
+    });
+  };
+}
