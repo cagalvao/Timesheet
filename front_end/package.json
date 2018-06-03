@@ -20,8 +20,6 @@
     "babel-core": "^6.2.1",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^6.2.0",
-    "chai": "^3.5.0",
-    "chai-jquery": "^2.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
@@ -29,11 +27,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.8.2",
-    "jquery": "^2.2.1",
-    "jsdom": "^8.1.0",
-    "mocha": "^2.4.5",
-    "prettier": "^1.13.4",
-    "react-addons-test-utils": "^0.14.7",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },
@@ -47,11 +40,9 @@
     "prop-types": "^15.6.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-hot-loader": "^4.2.0",
     "react-redux": "4.3.0",
     "react-router-dom": "^4.0.0",
     "redux": "^3.0.4",
-    "redux-form": "^6.6.3",
     "redux-thunk": "^2.3.0"
   }
 }

@@ -81,7 +81,7 @@ export function addTimesheetEntry(timesheet, callback) {
     id: timesheet.id,
     employeeId: 1,
     workday: moment().format("DD/MM/YYYY"),
-    entry: moment().format('HH:mm:ss')
+    entry: moment().format("HH:mm:ss")
   });
 
   return dispatch => {

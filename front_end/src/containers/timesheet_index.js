@@ -200,10 +200,7 @@ class TimesheetIndex extends Component {
           <button className="btn btn-primary" onClick={this.createTimesheet}>
             Add a Timesheet
           </button>
-          <button
-            className="btn btn-primary"
-            onClick={this.addTimesheetEntry}
-          >
+          <button className="btn btn-primary" onClick={this.addTimesheetEntry}>
             Add an entry
           </button>
         </div>
