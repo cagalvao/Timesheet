@@ -1,10 +1,6 @@
 {
   "type": "object",
   "properties": {
-    "id": {
-      "type": "number",
-      "required": false
-    },
     "employeeId": {
       "type": "number",
       "required": true

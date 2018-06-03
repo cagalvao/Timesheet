@@ -86,10 +86,10 @@ function editTimesheet (req, res) {
 
 function addTimesheetEntry (req, res) {
   Promise.coroutine(function * () {
-    const { id, employeeId, workday, entry } = req.body
+    const { employeeId, workday, entry } = req.body
 
     try {
-      const affectedRows = yield timesheet.addTimesheetEntry(id, employeeId, workday, entry)
+      const affectedRows = yield timesheet.addTimesheetEntry(employeeId, workday, entry)
 
       if (affectedRows === 0) {
         return res.sendStatus(404)

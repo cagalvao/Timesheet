@@ -286,7 +286,8 @@ describe('/timesheet_service', function () {
       const service = proxyquire('../timesheet_service', {
         '../utils/db': {
           query: sinon.stub()
-          .onCall(0).resolves({ affectedRows: 1 })
+          .onCall(0).resolves([])
+          .onCall(1).resolves({ affectedRows: 1 })
         },
         '../workday_route/workday_service': {
           getWorkdayId: sinon.stub().resolves([{ id: 11 }])
@@ -294,7 +295,7 @@ describe('/timesheet_service', function () {
       })
 
       Promise.coroutine(function * () {
-        const affectedRows = yield service.addTimesheetEntry(null, 1, '21/05/2018', '10:00:00')
+        const affectedRows = yield service.addTimesheetEntry(1, '21/05/2018', '10:00:00')
         affectedRows.should.equal(1)
 
         done()
@@ -322,7 +323,7 @@ describe('/timesheet_service', function () {
       })
 
       Promise.coroutine(function * () {
-        const affectedRows = yield service.addTimesheetEntry(22, 1, '21/05/2018', '10:00:00')
+        const affectedRows = yield service.addTimesheetEntry(1, '21/05/2018', '10:00:00')
         affectedRows.should.equal(1)
 
         done()
@@ -351,7 +352,7 @@ describe('/timesheet_service', function () {
       })
 
       Promise.coroutine(function * () {
-        const affectedRows = yield service.addTimesheetEntry(22, 1, '21/05/2018', '10:00:00')
+        const affectedRows = yield service.addTimesheetEntry(1, '21/05/2018', '10:00:00')
         affectedRows.should.equal(1)
 
         done()
@@ -381,7 +382,7 @@ describe('/timesheet_service', function () {
       })
 
       Promise.coroutine(function * () {
-        const affectedRows = yield service.addTimesheetEntry(22, 1, '21/05/2018', '10:00:00')
+        const affectedRows = yield service.addTimesheetEntry(1, '21/05/2018', '10:00:00')
         affectedRows.should.equal(1)
 
         done()
@@ -412,39 +413,8 @@ describe('/timesheet_service', function () {
       })
 
       Promise.coroutine(function * () {
-        const affectedRows = yield service.addTimesheetEntry(22, 1, '21/05/2018', '10:00:00')
+        const affectedRows = yield service.addTimesheetEntry(1, '21/05/2018', '10:00:00')
         affectedRows.should.equal(1)
-
-        done()
-      })()
-    })
-
-    it('should return with NOT FOUND', function (done) {
-      const response = [{
-        id: 22,
-        employeeId: 1,
-        employeeName: 'Funcionário',
-        workdayId: 1,
-        workday: '21/05/2018',
-        entry_1: '09:00:00',
-        entry_2: '12:00:00',
-        entry_3: '13:00:00',
-        entry_4: '18:00:00'
-      }]
-
-      const service = proxyquire('../timesheet_service', {
-        '../utils/db': {
-          query: sinon.stub()
-          .onCall(0).resolves(response)
-        },
-        '../workday_route/workday_service': {
-          getWorkdayId: sinon.stub().resolves([{ id: 11 }])
-        }
-      })
-
-      Promise.coroutine(function * () {
-        const affectedRows = yield service.addTimesheetEntry(22, 1, '21/05/2018', '10:00:00')
-        affectedRows.should.equal(0)
 
         done()
       })()

@@ -658,7 +658,6 @@ describe('/timesheet_routes', function () {
   describe('addTimesheetEntry', function () {
     it('should return with SUCCESS', function (done) {
       const body = {
-        id: 22,
         employeeId: 1,
         workday: 1,
         entry: '10:00:00'
@@ -688,7 +687,6 @@ describe('/timesheet_routes', function () {
 
     it('should return with NOT FOUND', function (done) {
       const body = {
-        id: 22,
         employeeId: 1,
         workday: 1,
         entry: '10:00:00'
@@ -718,7 +716,6 @@ describe('/timesheet_routes', function () {
 
     it('should return with ERROR', function (done) {
       const body = {
-        id: 22,
         employeeId: 1,
         workday: 1,
         entry: '10:00:00'

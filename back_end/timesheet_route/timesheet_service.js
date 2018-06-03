@@ -42,12 +42,13 @@ function getTimesheetQueryEnding () {
   return ' group by et.id order by w.workday desc'
 }
 
-async function getTimesheetById (timesheetId) {
+async function getTimesheetByWorkdayId (workdayId) {
   let query = getTimesheetQueryBeginning()
-  query += ` where et.id = ${timesheetId}`
+  query += ` where w.id = ${workdayId}`
   query += getTimesheetQueryEnding()
 
   const timesheet = await db.query(query)
+  console.log('timesheet db', timesheet)
 
   return timesheet[0]
 }
@@ -87,28 +88,27 @@ async function editTimesheet (timesheet) {
   return affectedRows
 }
 
-async function addTimesheetEntry (id, employeeId, workday, entry) {
+async function addTimesheetEntry (employeeId, workday, entry) {
   const workdayId = await getWorkdayId(moment(workday, 'DD/MM/YYYY').format('YYYY-MM-DD'))
+  const timesheet = await getTimesheetByWorkdayId(workdayId)
 
-  if (!id) {
+  if (!timesheet) {
     const result = await db.query(`INSERT INTO timesheet (id_workday, id_employee, entry_1) VALUES (${workdayId}, ${employeeId}, "${entry}")`)
     return result.affectedRows
   }
 
-  const timesheet = await getTimesheetById(id)
-
   if (!timesheet.entry_2) {
-    const result = await db.query(`UPDATE timesheet SET entry_2 = "${entry}" where id = ${id}`)
+    const result = await db.query(`UPDATE timesheet SET entry_2 = "${entry}" where id = ${timesheet.id}`)
     return result.affectedRows
   }
 
   if (!timesheet.entry_3) {
-    const result = await db.query(`UPDATE timesheet SET entry_3 = "${entry}" where id = ${id}`)
+    const result = await db.query(`UPDATE timesheet SET entry_3 = "${entry}" where id = ${timesheet.id}`)
     return result.affectedRows
   }
 
   if (!timesheet.entry_4) {
-    const result = await db.query(`UPDATE timesheet SET entry_4 = "${entry}" where id = ${id}`)
+    const result = await db.query(`UPDATE timesheet SET entry_4 = "${entry}" where id = ${timesheet.id}`)
     return result.affectedRows
   }
 
