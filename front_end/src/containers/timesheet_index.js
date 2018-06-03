@@ -2,11 +2,13 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import {
   fetchMonthTimesheets,
-  addTimesheet,
+  addTimesheetLine,
   createTimesheet,
-  editTimesheet
+  editTimesheet,
+  deleteTimesheet
 } from "../actions";
 
 class TimesheetIndex extends Component {
@@ -21,6 +23,7 @@ class TimesheetIndex extends Component {
     this.createTimesheet = this.createTimesheet.bind(this);
     this.editTimesheet = this.editTimesheet.bind(this);
     this.saveTimesheet = this.saveTimesheet.bind(this);
+    this.deleteTimesheet = this.deleteTimesheet.bind(this);
     this.cancelEditing = this.cancelEditing.bind(this);
 
     this.updateField = this.updateField.bind(this);
@@ -34,14 +37,13 @@ class TimesheetIndex extends Component {
     const ts = {
       id: -1,
       employeeId: 1,
-      workday: "01/06/2018",
-      entry_1: "",
-      entry_2: "",
-      entry_3: "",
-      entry_4: ""
+      entry_1: null,
+      entry_2: null,
+      entry_3: null,
+      entry_4: null
     };
 
-    this.props.addTimesheet(ts);
+    this.props.addTimesheetLine(ts);
 
     this.setState({
       isEditing: true,
@@ -66,6 +68,12 @@ class TimesheetIndex extends Component {
         this.cancelEditing();
       });
     }
+  }
+
+  deleteTimesheet(ts) {
+    this.props.deleteTimesheet(ts, () => {
+      this.props.fetchMonthTimesheets();
+    });
   }
 
   cancelEditing() {
@@ -99,12 +107,20 @@ class TimesheetIndex extends Component {
       );
     }
     return (
-      <button
-        className="btn btn-primary"
-        onClick={() => this.editTimesheet(ts)}
-      >
-        Editar
-      </button>
+      <div>
+        <button
+          className="btn btn-primary"
+          onClick={() => this.editTimesheet(ts)}
+        >
+          Editar
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={() => this.deleteTimesheet(ts)}
+        >
+          Deletar
+        </button>
+      </div>
     );
   }
 
@@ -176,6 +192,12 @@ class TimesheetIndex extends Component {
           <button className="btn btn-primary" onClick={this.createTimesheet}>
             Add a Timesheet
           </button>
+          <button
+            className="btn btn-primary"
+            onClick={this.createTimesheetEntry}
+          >
+            Add an entry
+          </button>
         </div>
         <h3>Timesheets</h3>
         <table className="table table-hover">
@@ -201,9 +223,10 @@ class TimesheetIndex extends Component {
 TimesheetIndex.propTypes = {
   timesheets: PropTypes.arrayOf(PropTypes.object).isRequired,
   fetchMonthTimesheets: PropTypes.func.isRequired,
-  addTimesheet: PropTypes.func.isRequired,
+  addTimesheetLine: PropTypes.func.isRequired,
   createTimesheet: PropTypes.func.isRequired,
-  editTimesheet: PropTypes.func.isRequired
+  editTimesheet: PropTypes.func.isRequired,
+  deleteTimesheet: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -212,9 +235,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchMonthTimesheets,
-  addTimesheet,
+  addTimesheetLine,
   createTimesheet,
-  editTimesheet
+  editTimesheet,
+  deleteTimesheet
 };
 
 export default connect(

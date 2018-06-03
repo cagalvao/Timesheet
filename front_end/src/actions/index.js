@@ -1,29 +1,20 @@
 import axios from "axios";
 import moment from "moment";
 
-import {
-  FETCH_MONTH_TIMESHEETS,
-  FETCH_EMPLOYEE,
-  ADD_TIMESHEET,
-  CREATE_TIMESHEET,
-  EDIT_TIMESHEET
-} from "./types";
+export const FETCH_MONTH_TIMESHEETS = "fetch_month_timesheets";
+export const ADD_ENTRY = "add_entry";
+export const ADD_TIMESHEET_LINE = "add_timesheet_line";
+export const CREATE_TIMESHEET = "create_timesheet";
+export const EDIT_TIMESHEET = "edit_timesheet";
+export const DELETE_TIMESHEET = "delete_timesheet";
 
 const API = "http://localhost:4000";
 
-function fetchEmployee() {
-  const request = axios.get(`${API}/employees/1`);
-
-  return dispatch => {
-    request.then(({ data }) => {
-      dispatch({ type: FETCH_EMPLOYEE, payload: data });
-    });
-  };
-}
-
-function fetchMonthTimesheets() {
+export function fetchMonthTimesheets() {
   const now = moment();
-  const request = axios.get(`${API}/timesheets/1/${now.year()}/${now.month()}`);
+  const request = axios.get(
+    `${API}/timesheets/1/${now.year()}/${now.month() + 1}`
+  );
 
   return dispatch => {
     request.then(({ data }) => {
@@ -32,8 +23,8 @@ function fetchMonthTimesheets() {
   };
 }
 
-function createTimesheet(timesheet, callback) {
-  const request = axios.post(`${API}/timesheets/new`, {
+export function createTimesheet(timesheet, callback) {
+  const request = axios.put(`${API}/timesheets/new`, {
     employeeId: timesheet.employeeId,
     workday: timesheet.workday,
     entry_1: timesheet.entry_1,
@@ -43,18 +34,23 @@ function createTimesheet(timesheet, callback) {
   });
 
   return dispatch => {
-    request.then(({ data }) => {
-      dispatch({ type: CREATE_TIMESHEET, payload: data });
+    request.then(() => {
+      dispatch({ type: CREATE_TIMESHEET });
       callback();
     });
   };
 }
 
-function addTimesheet(timesheet) {
-  return { type: ADD_TIMESHEET, payload: timesheet };
+export function addTimesheetLine(timesheet) {
+  return {
+    type: ADD_TIMESHEET_LINE,
+    payload: Object.assign(timesheet, {
+      workday: moment().format("DD/MM/YYYY")
+    })
+  };
 }
 
-function editTimesheet(timesheet, callback) {
+export function editTimesheet(timesheet, callback) {
   const request = axios.post(`${API}/timesheets/edit`, timesheet);
 
   return dispatch => {
@@ -65,10 +61,17 @@ function editTimesheet(timesheet, callback) {
   };
 }
 
-module.exports = {
-  fetchEmployee,
-  fetchMonthTimesheets,
-  addTimesheet,
-  createTimesheet,
-  editTimesheet
-};
+export function deleteTimesheet(timesheet, callback) {
+  const request = axios.delete(`${API}/timesheets/delete`, {
+    data: {
+      id: timesheet.id
+    }
+  });
+
+  return dispatch => {
+    request.then(() => {
+      dispatch({ type: DELETE_TIMESHEET });
+      callback();
+    });
+  };
+}

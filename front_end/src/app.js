@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import TimesheetIndex from "./components/timesheet_index";
+import TimesheetIndex from "./containers/timesheet_index";
 
 const App = () => (
   <BrowserRouter>
