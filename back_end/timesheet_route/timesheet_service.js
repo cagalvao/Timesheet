@@ -48,7 +48,6 @@ async function getTimesheetByWorkdayId (workdayId) {
   query += getTimesheetQueryEnding()
 
   const timesheet = await db.query(query)
-  console.log('timesheet db', timesheet)
 
   return timesheet[0]
 }
