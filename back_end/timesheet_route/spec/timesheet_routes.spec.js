@@ -655,97 +655,97 @@ describe('/timesheet_routes', function () {
     })
   })
 
-  describe('addTimesheetEntry', function () {
-    it('should return with SUCCESS', function (done) {
-      const body = {
-        employeeId: 1,
-        workday: 1,
-        entry: '10:00:00'
-      }
+  // describe('addTimesheetEntry', function () {
+  //   it('should return with SUCCESS', function (done) {
+  //     const body = {
+  //       employeeId: 1,
+  //       workday: 1,
+  //       entry: '10:00:00'
+  //     }
 
-      const addTimesheetEntry = sinon.stub().resolves(1)
+  //     const addTimesheetEntry = sinon.stub().resolves(1)
 
-      const route = proxyquire('../timesheet_routes', {
-        './timesheet_service': {
-          addTimesheetEntry
-        }
-      })
+  //     const route = proxyquire('../timesheet_routes', {
+  //       './timesheet_service': {
+  //         addTimesheetEntry
+  //       }
+  //     })
 
-      const req = {
-        body
-      }
+  //     const req = {
+  //       body
+  //     }
 
-      const res = {
-        sendStatus: (code) => {
-          code.should.be.equal(200)
-          done()
-        }
-      }
+  //     const res = {
+  //       sendStatus: (code) => {
+  //         code.should.be.equal(200)
+  //         done()
+  //       }
+  //     }
 
-      route.addTimesheetEntry(req, res)
-    })
+  //     route.addTimesheetEntry(req, res)
+  //   })
 
-    it('should return with NOT FOUND', function (done) {
-      const body = {
-        employeeId: 1,
-        workday: 1,
-        entry: '10:00:00'
-      }
+  //   it('should return with NOT FOUND', function (done) {
+  //     const body = {
+  //       employeeId: 1,
+  //       workday: 1,
+  //       entry: '10:00:00'
+  //     }
 
-      const addTimesheetEntry = sinon.stub().resolves(0)
+  //     const addTimesheetEntry = sinon.stub().resolves(0)
 
-      const route = proxyquire('../timesheet_routes', {
-        './timesheet_service': {
-          addTimesheetEntry
-        }
-      })
+  //     const route = proxyquire('../timesheet_routes', {
+  //       './timesheet_service': {
+  //         addTimesheetEntry
+  //       }
+  //     })
 
-      const req = {
-        body
-      }
+  //     const req = {
+  //       body
+  //     }
 
-      const res = {
-        sendStatus: (code) => {
-          code.should.be.equal(404)
-          done()
-        }
-      }
+  //     const res = {
+  //       sendStatus: (code) => {
+  //         code.should.be.equal(404)
+  //         done()
+  //       }
+  //     }
 
-      route.addTimesheetEntry(req, res)
-    })
+  //     route.addTimesheetEntry(req, res)
+  //   })
 
-    it('should return with ERROR', function (done) {
-      const body = {
-        employeeId: 1,
-        workday: 1,
-        entry: '10:00:00'
-      }
+  //   it('should return with ERROR', function (done) {
+  //     const body = {
+  //       employeeId: 1,
+  //       workday: 1,
+  //       entry: '10:00:00'
+  //     }
 
-      const addTimesheetEntry = sinon.stub().rejects(Error('generic error'))
+  //     const addTimesheetEntry = sinon.stub().rejects(Error('generic error'))
 
-      const route = proxyquire('../timesheet_routes', {
-        './timesheet_service': {
-          addTimesheetEntry
-        }
-      })
+  //     const route = proxyquire('../timesheet_routes', {
+  //       './timesheet_service': {
+  //         addTimesheetEntry
+  //       }
+  //     })
 
-      const req = {
-        body
-      }
+  //     const req = {
+  //       body
+  //     }
 
-      const res = {
-        status: (code) => {
-          code.should.be.equal(500)
-        },
-        send: (error) => {
-          error.should.be.equal('generic error')
-          done()
-        }
-      }
+  //     const res = {
+  //       status: (code) => {
+  //         code.should.be.equal(500)
+  //       },
+  //       send: (error) => {
+  //         error.should.be.equal('generic error')
+  //         done()
+  //       }
+  //     }
 
-      route.addTimesheetEntry(req, res)
-    })
-  })
+  //     route.addTimesheetEntry(req, res)
+  //   })
+  // })
 
   describe('deleteTimesheet', function () {
     it('should return with SUCCESS', function (done) {

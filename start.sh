@@ -1,6 +1,8 @@
 #!/bin/bash
 sudo pkill mysql
 
+docker-compose down
+
 cd back_end
 npm run refresh_docker_volume
 npm run swagger

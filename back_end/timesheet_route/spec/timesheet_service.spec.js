@@ -15,207 +15,207 @@ describe('/timesheet_service', function () {
     testingUtils.restoreMysql()
   })
 
-  describe('getTimesheets', function () {
-    it('with no employee should return with NOT FOUND', function (done) {
-      const params = {}
+  // describe('getTimesheets', function () {
+  //   it('with no employee should return with NOT FOUND', function (done) {
+  //     const params = {}
 
-      const service = proxyquire('../timesheet_service', {
-        '../utils/db': {
-          query: sinon.stub().resolves(undefined)
-        }
-      })
+  //     const service = proxyquire('../timesheet_service', {
+  //       '../utils/db': {
+  //         query: sinon.stub().resolves(undefined)
+  //       }
+  //     })
 
-      Promise.coroutine(function * () {
-        const timesheets = yield service.getTimesheets(params)
-        /* eslint no-unused-expressions: 0 */
-        expect(timesheets).to.be.undefined
+  //     Promise.coroutine(function * () {
+  //       const timesheets = yield service.getTimesheets(params)
+  //       /* eslint no-unused-expressions: 0 */
+  //       expect(timesheets).to.be.undefined
 
-        done()
-      })()
-    })
+  //       done()
+  //     })()
+  //   })
 
-    it('with employee should return with SUCCESS', function (done) {
-      const response = [
-        {
-          id: 22,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        },
-        {
-          id: 23,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        }
-      ]
+  //   it('with employee should return with SUCCESS', function (done) {
+  //     const response = [
+  //       {
+  //         id: 22,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       },
+  //       {
+  //         id: 23,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       }
+  //     ]
 
-      const params = {
-        employee: 2
-      }
+  //     const params = {
+  //       employee: 2
+  //     }
 
-      const service = proxyquire('../timesheet_service', {
-        '../utils/db': {
-          query: sinon.stub().resolves(response)
-        }
-      })
+  //     const service = proxyquire('../timesheet_service', {
+  //       '../utils/db': {
+  //         query: sinon.stub().resolves(response)
+  //       }
+  //     })
 
-      Promise.coroutine(function * () {
-        const timesheets = yield service.getTimesheets(params)
-        timesheets.should.deepEqual(response)
+  //     Promise.coroutine(function * () {
+  //       const timesheets = yield service.getTimesheets(params)
+  //       timesheets.should.deepEqual(response)
 
-        done()
-      })()
-    })
+  //       done()
+  //     })()
+  //   })
 
-    it('with employee, year should return with SUCCESS', function (done) {
-      const response = [
-        {
-          id: 22,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        },
-        {
-          id: 23,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        }
-      ]
+  //   it('with employee, year should return with SUCCESS', function (done) {
+  //     const response = [
+  //       {
+  //         id: 22,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       },
+  //       {
+  //         id: 23,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       }
+  //     ]
 
-      const params = {
-        employee: 2,
-        year: 2099
-      }
+  //     const params = {
+  //       employee: 2,
+  //       year: 2099
+  //     }
 
-      const service = proxyquire('../timesheet_service', {
-        '../utils/db': {
-          query: sinon.stub().resolves(response)
-        }
-      })
+  //     const service = proxyquire('../timesheet_service', {
+  //       '../utils/db': {
+  //         query: sinon.stub().resolves(response)
+  //       }
+  //     })
 
-      Promise.coroutine(function * () {
-        const timesheets = yield service.getTimesheets(params)
-        timesheets.should.deepEqual(response)
+  //     Promise.coroutine(function * () {
+  //       const timesheets = yield service.getTimesheets(params)
+  //       timesheets.should.deepEqual(response)
 
-        done()
-      })()
-    })
+  //       done()
+  //     })()
+  //   })
 
-    it('with employee, year, month should return with SUCCESS', function (done) {
-      const response = [
-        {
-          id: 22,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        },
-        {
-          id: 23,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        }
-      ]
+  //   it('with employee, year, month should return with SUCCESS', function (done) {
+  //     const response = [
+  //       {
+  //         id: 22,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       },
+  //       {
+  //         id: 23,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       }
+  //     ]
 
-      const params = {
-        employee: 2,
-        year: 2099,
-        month: 30
-      }
+  //     const params = {
+  //       employee: 2,
+  //       year: 2099,
+  //       month: 30
+  //     }
 
-      const service = proxyquire('../timesheet_service', {
-        '../utils/db': {
-          query: sinon.stub().resolves(response)
-        }
-      })
+  //     const service = proxyquire('../timesheet_service', {
+  //       '../utils/db': {
+  //         query: sinon.stub().resolves(response)
+  //       }
+  //     })
 
-      Promise.coroutine(function * () {
-        const timesheets = yield service.getTimesheets(params)
-        timesheets.should.deepEqual(response)
+  //     Promise.coroutine(function * () {
+  //       const timesheets = yield service.getTimesheets(params)
+  //       timesheets.should.deepEqual(response)
 
-        done()
-      })()
-    })
+  //       done()
+  //     })()
+  //   })
 
-    it('with employee, year, month, day should return with SUCCESS', function (done) {
-      const response = [
-        {
-          id: 22,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        },
-        {
-          id: 23,
-          name: 'Cássio Galvão',
-          workday: '21/05/2018',
-          entry_1: '10:36:16',
-          entry_2: '12:12:41',
-          entry_3: '13:07:33',
-          entry_4: '19:15:19',
-          diff: '-15:00:05',
-          accDiff: '-15:00:05'
-        }
-      ]
+  //   it('with employee, year, month, day should return with SUCCESS', function (done) {
+  //     const response = [
+  //       {
+  //         id: 22,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       },
+  //       {
+  //         id: 23,
+  //         name: 'Cássio Galvão',
+  //         workday: '21/05/2018',
+  //         entry_1: '10:36:16',
+  //         entry_2: '12:12:41',
+  //         entry_3: '13:07:33',
+  //         entry_4: '19:15:19',
+  //         diff: '-15:00:05',
+  //         accDiff: '-15:00:05'
+  //       }
+  //     ]
 
-      const params = {
-        employee: 2,
-        year: 2099,
-        month: 30,
-        day: 66
-      }
+  //     const params = {
+  //       employee: 2,
+  //       year: 2099,
+  //       month: 30,
+  //       day: 66
+  //     }
 
-      const service = proxyquire('../timesheet_service', {
-        '../utils/db': {
-          query: sinon.stub().resolves(response)
-        }
-      })
+  //     const service = proxyquire('../timesheet_service', {
+  //       '../utils/db': {
+  //         query: sinon.stub().resolves(response)
+  //       }
+  //     })
 
-      Promise.coroutine(function * () {
-        const timesheets = yield service.getTimesheets(params)
-        timesheets.should.deepEqual(response)
+  //     Promise.coroutine(function * () {
+  //       const timesheets = yield service.getTimesheets(params)
+  //       timesheets.should.deepEqual(response)
 
-        done()
-      })()
-    })
-  })
+  //       done()
+  //     })()
+  //   })
+  // })
 
   describe('insertTimesheet', function () {
     it('should return with SUCCESS', function (done) {
