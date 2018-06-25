@@ -68,7 +68,7 @@ describe('/workday_service', function () {
 
       Promise.coroutine(function * () {
         const workdayId = yield service.getWorkdayId('2018-01-01')
-        workdayId.should.deepEqual(response[0])
+        workdayId.should.deepEqual(response[0].id)
 
         done()
       })()
@@ -113,7 +113,7 @@ describe('/workday_service', function () {
 
       Promise.coroutine(function * () {
         const workdayId = yield service.getWorkdayId('2018-01-01')
-        workdayId.should.deepEqual(response[0])
+        workdayId.should.deepEqual(response[0].id)
 
         done()
       })()

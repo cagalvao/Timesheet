@@ -88,7 +88,9 @@ async function editTimesheet (timesheet) {
 }
 
 async function addTimesheetEntry (employeeId, workday, entry) {
-  const workdayId = await getWorkdayId(moment(workday, 'DD/MM/YYYY').format('YYYY-MM-DD'))
+  workday = moment(workday, 'DD/MM/YYYY').format('YYYY-MM-DD')
+
+  const workdayId = await getWorkdayId(workday)
   const timesheet = await getTimesheetByWorkdayId(workdayId)
 
   if (!timesheet) {

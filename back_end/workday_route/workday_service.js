@@ -31,8 +31,9 @@ async function getWorkdayId (workday) {
   if (result.length > 0 && result[0].id) {
     return result[0].id
   } else {
-    const newObj = await insertWorkday(workday)
-    return newObj
+    workday = moment(workday, 'YYYY-MM-DD').format('DD/MM/YYYY')
+    const newObj = await insertWorkday({workday})
+    return newObj.id
   }
 }
 
