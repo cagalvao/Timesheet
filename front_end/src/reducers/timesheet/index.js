@@ -1,4 +1,4 @@
-import { FETCH_MONTH_TIMESHEETS, ADD_TIMESHEET_LINE } from "../actions";
+import { FETCH_MONTH_TIMESHEETS, ADD_TIMESHEET_LINE } from "../../actions";
 
 export default function(state = [], action) {
   switch (action.type) {

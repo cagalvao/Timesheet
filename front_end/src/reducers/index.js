@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import TimesheetReducer from "./timesheet_reducer";
+import TimesheetReducer from "./timesheet";
 
 const rootReducer = combineReducers({
   timesheets: TimesheetReducer

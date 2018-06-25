@@ -18,9 +18,22 @@ export function fetchMonthTimesheets() {
 
   return dispatch => {
     request.then(({ data }) => {
+      formatDateTimes(data)
       dispatch({ type: FETCH_MONTH_TIMESHEETS, payload: data });
     });
   };
+}
+
+function formatDateTimes (timesheets) {
+  timesheets.map((ts) => {
+    ts.workday = ts.workday ? ts.workday.slice(0, -5) : ts.workday
+    ts.entry_1 = ts.entry_1 ? ts.entry_1.slice(0, -3) : ts.entry_1
+    ts.entry_2 = ts.entry_2 ? ts.entry_2.slice(0, -3) : ts.entry_2
+    ts.entry_3 = ts.entry_3 ? ts.entry_3.slice(0, -3) : ts.entry_3
+    ts.entry_4 = ts.entry_4 ? ts.entry_4.slice(0, -3) : ts.entry_4
+    ts.diff = ts.diff ? ts.diff.slice(0, -3) : ts.diff
+    ts.accDiff = ts.accDiff ? ts.accDiff.slice(0, -3) : ts.accDiff
+  })
 }
 
 export function createTimesheet(timesheet, callback) {
@@ -76,9 +89,8 @@ export function deleteTimesheet(timesheet, callback) {
   };
 }
 
-export function addTimesheetEntry(timesheet, callback) {
+export function addTimesheetEntry(callback) {
   const request = axios.put(`${API}/timesheets/add`, {
-    id: timesheet.id,
     employeeId: 1,
     workday: moment().format("DD/MM/YYYY"),
     entry: moment().format("HH:mm:ss")
