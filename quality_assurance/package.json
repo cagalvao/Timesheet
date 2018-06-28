@@ -1,0 +1,24 @@
+{
+  "name": "mono_qa",
+  "version": "1.0.0",
+  "description": "This is the QA/E2E Testing project for the Software Engineering Graduation Project",
+  "main": "nightwatch.js",
+  "scripts": {
+    "test-desktop": "node nightwatch --tag desktop -e chrome",
+    "test-mobile": "node nightwatch --tag mobile -e chromeMobile",
+    "test": "npm run test-desktop && npm run test-mobile"
+  },
+  "author": "Cássio Galvão <cassio.galvao@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cagalvao/Timesheet.git"
+  },
+  "license": "UNLICENSED",
+  "homepage": "https://github.com/cagalvao/Timesheet#readme",
+  "dependencies": {
+    "eslint": "^4.13.0",
+    "moment": "^2.22.2",
+    "nightwatch": "^0.9.19"
+  },
+  "devDependencies": {}
+}

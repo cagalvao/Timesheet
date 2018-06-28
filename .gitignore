@@ -20,9 +20,10 @@ infra/docker_volumes/swagger/*
 !infra/docker_volumes/mono_api/README.md
 !infra/docker_volumes/mono_api/wait-for-it.sh
 
-
 infra/docker_volumes/mono_api/README.md
 infra/docker_volumes/mono_api/wait-for-it.sh
+
+tests_output
 
 /.cache
 /.config
