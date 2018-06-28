@@ -6,7 +6,7 @@ class NavBar extends Component {
       <div>
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark p-0">
           <div className="container">
-            <a href="index.html" className="navbar-brand">Timesheet</a>
+            <a href="#" className="navbar-brand">Timesheet</a>
             <button className="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
               <span className="navbar-toggler-icon"></span>
             </button>
@@ -17,16 +17,16 @@ class NavBar extends Component {
                     <i className="fas fa-user"></i> Bem-Vindo, Cássio!
                   </a>
                   <div className="dropdown-menu">
-                    <a href="profile.html" className="dropdown-item">
+                    <a href="#" className="dropdown-item">
                       <i className="fas fa-user-circle"></i> Meu Perfil
                     </a>
-                    <a href="settings.html" className="dropdown-item">
+                    <a href="#" className="dropdown-item">
                       <i className="fas fa-cog"></i> Configurações
                     </a>
                   </div>
                 </li>
                 <li className="nav-item">
-                  <a href="login.html" className="nav-link">
+                  <a href="#" className="nav-link">
                     <i className="fas fa-user-times"></i> Sair
                   </a>
                 </li>
