@@ -61,9 +61,9 @@ class Timesheets extends Component {
 
   renderButtons(ts) {
     return (
-      <a href="" className="btn btn-secondary" onClick={this.addTimesheetEntry}>
+      <a href="" className="btn btn-secondary">
         <i className="fas fa-angle-double-right"></i>
-        Detalhes
+        &nbsp;Detalhes
       </a>
     )
   }

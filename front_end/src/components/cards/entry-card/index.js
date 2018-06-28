@@ -43,7 +43,7 @@ class EntryCard extends Component {
     style += this.state.isHovered ? " bg-primary-hover" : " bg-primary";
 
     return (
-      <div className={style} onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} onClick={this.addTimesheetEntry}>
+      <div className={style} id="entry-card" onMouseEnter={this.handleHover} onMouseLeave={this.handleHover} onClick={this.addTimesheetEntry}>
         <div className="card-body">
           <h3>Preencher Ponto</h3>
           <span className="d-block mt-4" style={{ fontSize: '48px' }}><i className="fas fa-pencil-alt"></i> {this.state.currentTime}</span>

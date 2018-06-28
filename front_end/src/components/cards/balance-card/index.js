@@ -10,7 +10,7 @@ class BalanceCard extends Component {
     background += this.props.balance && this.props.balance.includes('-') ? " bg-danger" : " bg-success"
 
     return (
-      <div className={background}>
+      <div id="balance-card" className={background}>
         <div className="row">
           <div className="col-3 pl-3">
             <h4 className="display-4">
@@ -19,7 +19,7 @@ class BalanceCard extends Component {
           </div>
           <div className="col-9 px-0">
             <span className="text-center d-block" style={{ fontSize: '12px' }}>SALDO ATUAL</span>
-            <span className="d-block" style={{ fontSize: '40px' }}>{this.props.balance}</span>
+            <span id="#balance-value" className="d-block" style={{ fontSize: '40px' }}>{this.props.balance}</span>
           </div>
         </div>
       </div>
