@@ -8,11 +8,20 @@ Dockerized services, e2e UI regressive testing, unit testing, static code analys
 These were the technologies used:
 
 Front-end: React, Redux, Redux-Thunk, Webpack
+
 Static Code Analysis: ESLint
+
 Back-end: Node.js Express
+
 API Unit Testing: Mocha.js
+
 API Code Coverage: Istanbul
+
 Database: MySQL
+
 Containers: Docker
+
 API Documentation: Swagger.IO
+
 e2e UI Testing: Nightwatch.js
+
