@@ -13,6 +13,6 @@ Back-end: Node.js Express
 API Unit Testing: Mocha.js  
 API Code Coverage: Istanbul  
 Database: MySQL  
-Containers: Docker  
+Containers: Docker/Docker Compose  
 API Documentation: Swagger.IO  
 e2e UI Testing: Nightwatch.js
